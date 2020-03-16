@@ -1,0 +1,149 @@
+{
+  "files": [
+    {
+      "links": {
+        "self": "https://zenodo.org/api/files/09485e7b-a022-4d5a-872d-d64c0bbf6d3f/BioTIMECitations_02_04_2018.csv"
+      }, 
+      "checksum": "md5:46f83f4daae28bb3ba57bd9d0d8368a9", 
+      "bucket": "09485e7b-a022-4d5a-872d-d64c0bbf6d3f", 
+      "key": "BioTIMECitations_02_04_2018.csv", 
+      "type": "csv", 
+      "size": 132148
+    }, 
+    {
+      "links": {
+        "self": "https://zenodo.org/api/files/09485e7b-a022-4d5a-872d-d64c0bbf6d3f/BioTIMECitations_02_04_2018.xlsx"
+      }, 
+      "checksum": "md5:f3fb60c3cdc1730e810ff28aa2421b01", 
+      "bucket": "09485e7b-a022-4d5a-872d-d64c0bbf6d3f", 
+      "key": "BioTIMECitations_02_04_2018.xlsx", 
+      "type": "xlsx", 
+      "size": 51912
+    }, 
+    {
+      "links": {
+        "self": "https://zenodo.org/api/files/09485e7b-a022-4d5a-872d-d64c0bbf6d3f/BioTIMEInteractions_02_04_2018.Rmd"
+      }, 
+      "checksum": "md5:af113ee88316ed5a173616784f020e72", 
+      "bucket": "09485e7b-a022-4d5a-872d-d64c0bbf6d3f", 
+      "key": "BioTIMEInteractions_02_04_2018.Rmd", 
+      "type": "rmd", 
+      "size": 25644
+    }, 
+    {
+      "links": {
+        "self": "https://zenodo.org/api/files/09485e7b-a022-4d5a-872d-d64c0bbf6d3f/BioTIMEMetadata_02_04_2018.csv"
+      }, 
+      "checksum": "md5:e2bd5990f23d001f770bc4462da61e4c", 
+      "bucket": "09485e7b-a022-4d5a-872d-d64c0bbf6d3f", 
+      "key": "BioTIMEMetadata_02_04_2018.csv", 
+      "type": "csv", 
+      "size": 988966
+    }, 
+    {
+      "links": {
+        "self": "https://zenodo.org/api/files/09485e7b-a022-4d5a-872d-d64c0bbf6d3f/BioTIMEQuery02_04_2018.zip"
+      }, 
+      "checksum": "md5:e1b4b7fca5091584831d43a798086496", 
+      "bucket": "09485e7b-a022-4d5a-872d-d64c0bbf6d3f", 
+      "key": "BioTIMEQuery02_04_2018.zip", 
+      "type": "zip", 
+      "size": 137494269
+    }, 
+    {
+      "links": {
+        "self": "https://zenodo.org/api/files/09485e7b-a022-4d5a-872d-d64c0bbf6d3f/BioTIMESQL02_04_2018.zip"
+      }, 
+      "checksum": "md5:df1b180077246a7cbbab5fb548f15998", 
+      "bucket": "09485e7b-a022-4d5a-872d-d64c0bbf6d3f", 
+      "key": "BioTIMESQL02_04_2018.zip", 
+      "type": "zip", 
+      "size": 144527094
+    }
+  ], 
+  "owners": [
+    30806
+  ], 
+  "doi": "10.5281/zenodo.3265871", 
+  "stats": {
+    "version_unique_downloads": 1173.0, 
+    "unique_views": 488.0, 
+    "views": 582.0, 
+    "version_views": 1513.0, 
+    "unique_downloads": 61.0, 
+    "version_unique_views": 1291.0, 
+    "volume": 7787503529.0, 
+    "version_downloads": 2039.0, 
+    "downloads": 157.0, 
+    "version_volume": 355020778225.0
+  }, 
+  "links": {
+    "doi": "https://doi.org/10.5281/zenodo.3265871", 
+    "conceptdoi": "https://doi.org/10.5281/zenodo.1095627", 
+    "bucket": "https://zenodo.org/api/files/09485e7b-a022-4d5a-872d-d64c0bbf6d3f", 
+    "conceptbadge": "https://zenodo.org/badge/doi/10.5281/zenodo.1095627.svg", 
+    "html": "https://zenodo.org/record/3265871", 
+    "latest_html": "https://zenodo.org/record/3265871", 
+    "badge": "https://zenodo.org/badge/doi/10.5281/zenodo.3265871.svg", 
+    "latest": "https://zenodo.org/api/records/3265871"
+  }, 
+  "conceptdoi": "10.5281/zenodo.1095627", 
+  "created": "2019-07-02T15:05:22.537054+00:00", 
+  "updated": "2020-01-24T19:26:20.905068+00:00", 
+  "conceptrecid": "1095627", 
+  "revision": 4, 
+  "id": 3265871, 
+  "metadata": {
+    "access_right_category": "success", 
+    "doi": "10.5281/zenodo.3265871", 
+    "description": "<p>The BioTIME database contains raw data on species identities and abundances in ecological assemblages through time. The database consists of 11 tables; one raw data table plus ten related meta data tables. For further information please see our associated data paper.</p>\n\n<p>This data consists of several elements:</p>\n\n<ul>\n\t<li>BioTIMESQL_02_04_2018.sql - an SQL file for the full public version of BioTIME which can be imported into any mySQL database.&nbsp;</li>\n\t<li>BioTIMEQuery_02_04_2018.csv - data file, although too large to view in Excel, this can be read into several software applications such as R or various database packages.&nbsp;</li>\n\t<li>BioTIMEMetadata_02_04_2018.csv&nbsp; - file containing the meta data for all studies.&nbsp;</li>\n\t<li>BioTIMECitations_02_04_2018.csv - file containing the citation list for all studies.&nbsp;</li>\n\t<li>BioTIMECitations_02_04_2018.xlsx - file containing the citation list for all studies (some special characters are not supported in the csv format).&nbsp;</li>\n\t<li>BioTIMEInteractions_02_04_2018.Rmd - an r markdown page providing a brief overview of how to interact with the database and associated .csv files (this will not work until field paths and database connections have been added/updated).</li>\n</ul>\n\n<p>Please note: any users of any of this material should cite the associated data paper in addition to the DOI listed here.</p>\n\n<p>To cite the data paper use the following:</p>\n\n<p>Dornelas M, Ant&atilde;o LH, Moyes F, Bates, AE, Magurran, AE, et al. BioTIME: A database of biodiversity time series for the Anthropocene.&nbsp;<em>Global Ecol Biogeogr.</em>&nbsp;2018; 27:760 - 786. https://doi.org/10.1111/geb.12729</p>", 
+    "license": {
+      "id": "CC-BY-4.0"
+    }, 
+    "title": "BioTIME", 
+    "relations": {
+      "version": [
+        {
+          "count": 5, 
+          "index": 4, 
+          "parent": {
+            "pid_type": "recid", 
+            "pid_value": "1095627"
+          }, 
+          "is_last": true, 
+          "last_child": {
+            "pid_type": "recid", 
+            "pid_value": "3265871"
+          }
+        }
+      ]
+    }, 
+    "version": "2", 
+    "keywords": [
+      "time series", 
+      "ecology", 
+      "biodiversity", 
+      "anthropocene", 
+      "spatial and temporal analysis"
+    ], 
+    "publication_date": "2018-04-02", 
+    "creators": [
+      {
+        "affiliation": "Centre for Biological Diversity and Scottish Oceans Institute, School of Biology, University of St. Andrews, St. Andrews, UK", 
+        "name": "BioTIME Consortium"
+      }
+    ], 
+    "access_right": "open", 
+    "resource_type": {
+      "type": "dataset", 
+      "title": "Dataset"
+    }, 
+    "related_identifiers": [
+      {
+        "scheme": "doi", 
+        "identifier": "10.5281/zenodo.1095627", 
+        "relation": "isVersionOf"
+      }
+    ]
+  }
+}
