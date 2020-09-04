@@ -4,7 +4,6 @@ Title: A Semantic Data Store Index
 Description: An index for a data store, permitting generation and querying of
             semantic metadata descriptions of data, including the 'schema.org',
             'prov', 'dcat' dataset vocabularies. 
-.
 Authors@R: c(
             person("Carl", "Boettiger", , "cboettig@gmail.com", c("aut", "cre"),
                    comment = c(ORCID = "0000-0002-1642-628X")),
@@ -21,9 +20,13 @@ VignetteBuilder: knitr
 URL: https://github.com/cboettig/index
 BugReports: https://github.com/cboettig/index/issues
 Imports: 
-    contenturi,
-    jsonld
-RoxygenNote: 7.0.2
+    contentid,
+    openssl,
+    jsonld,
+    jsonlite,
+    mime,
+    uuid
+RoxygenNote: 7.1.1
 Suggests: 
     knitr,
     rmarkdown,

@@ -1,0 +1,42 @@
+
+#' @importFrom openssl sha256
+hash_id <- function(f){
+  if(is.null(f)) return(NULL)
+  paste0("hash://sha256/", openssl::sha256(file(f, raw = TRUE)))
+}
+
+multihash_file <- function(files){
+  ids <- vapply(files, hash_id, character(1L), USE.NAMES = FALSE)
+  multihash_ids(ids)
+}
+
+multihash_ids <- function(ids){
+  paste0("hash://sha256/", paste0(openssl::sha256(paste(ids, collapse="\n"))))
+}
+
+compact <- function (l) Filter(Negate(is.null), l)
+
+#' @importFrom mime guess_type
+compressed_extension <- function(file){
+  ext <- function(x) gsub(".*[.](\\w+)$", "\\1", basename(x))
+  ex <- ext(file)
+  compressFormat = switch(ex, 
+                          "gz" = "gzip",
+                          "bz2" = "bz2",
+                          NULL)
+  if(!is.null(compressFormat)){
+    format <- mime::guess_type(gsub(compressFormat, "", file))
+  } else{
+    format <- mime::guess_type(file)
+  }
+  
+  list(format = format, compressFormat = compressFormat)
+}
+
+#' @importFrom jsonlite fromJSON toJSON
+merge_json <- function(x,y){
+  m <- c(jsonlite::fromJSON(x, simplifyVector = FALSE), 
+         jsonlite::fromJSON(y, simplifyVector = FALSE))
+  jsonlite::toJSON(m, auto_unbox = TRUE, pretty = TRUE)
+}
+

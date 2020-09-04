@@ -1,0 +1,59 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dct": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "identifier": {
+      "@id": "dct:identifier",
+      "@type": "@id"
+    },
+    "title": "dct:title",
+    "description": "dct:description",
+    "issued": "dct:issued",
+    "format": "dct:format",
+    "license": {
+      "@id": "dct:license",
+      "@type": "@id"
+    },
+    "creator": "dct:creator",
+    "compressFormat": "dcat:compressFormat",
+    "byteSize": "dcat:byteSize",
+    "wasGeneratedAtTime": "prov:wasGeneratedAtTime",
+    "startedAtTime": "prov:startedAtTime",
+    "endedAtTime": "prov:startedAtTime",
+    "wasDerivedFrom": {
+      "@id": "prov:wasDerivedFrom",
+      "@type": "@id"
+    },
+    "wasGeneratedBy": {
+      "@id": "prov:wasGeneratedBy",
+      "@type": "@id"
+    },
+    "generated": {
+      "@id": "prov:generated",
+      "@type": "@id"
+    },
+    "used": {
+      "@id": "prov:used",
+      "@type": "@id"
+    },
+    "wasRevisionOf": {
+      "@id": "prov:wasRevisionOf",
+      "@type": "@id"
+    },
+    "isDocumentedBy": {
+      "@id": "http://purl.org/spar/cito/isDocumentedBy",
+      "@type": "@id"
+    },
+    "distribution": {
+      "@id": "dcat:distribution",
+      "@type": "@id"
+    },
+    "Dataset": "dcat:Dataset",
+    "Activity": "prov:Activity",
+    "Distribution": "dcat:Distribution",
+    "SoftwareSourceCode": "http://schema.org/SoftwareSourceCode"
+  }
+}
