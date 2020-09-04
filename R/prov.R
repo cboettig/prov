@@ -1,5 +1,34 @@
 
 #' @export 
+write_prov <-  function(
+  data_in = NULL,
+  code = NULL, 
+  data_out = NULL,
+  meta = NULL,
+  creator = NULL,
+  title = NULL,
+  description = NULL,
+  issued = as.character(Sys.Date()),
+  license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+  provdb = "prov.json",
+  append = TRUE
+){
+  
+  prov_obj <- 
+  prov(data_in = data_in, 
+       code = code, 
+       data_out = data_out,
+       meta = meta,
+       creator = creator,
+       title = title,
+       description = description,
+       issued = issued,
+       license = licence)
+  
+  write_jsonld(prov_obj, provdb, append)
+  
+}
+
 prov <-  function(
   data_in = NULL,
   code = NULL, 
@@ -12,7 +41,10 @@ prov <-  function(
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode"
   ){
   
-  files <- prov_distribution(data_in, code, data_out, meta)
+  files <- prov_distribution(data_in = data_in, 
+                             code = code, 
+                             data_out = data_out, 
+                             meta = meta)
   dcat_dataset(distribution = files,
                creator = creator,
                title = title,
@@ -25,7 +57,7 @@ prov <-  function(
 
 prov_activity <- function(
   id = paste0("urn:uuid:", uuid::UUIDgenerate()),
-  description = paste("Running R script", basename(code)),
+  description = "Running R script",
   used = NULL, 
   generated = NULL,
   startedAtTime = NULL,
@@ -43,6 +75,7 @@ prov_activity <- function(
 }
 
 prov_data <- function(file, 
+                      id = hash_id(file),
                       description = NULL, 
                       meta_id = NULL,
                       wasGeneratedAtTime = file.mtime(file),
@@ -51,8 +84,11 @@ prov_data <- function(file,
                       wasRevisionOf = NULL){
   
   compact(
-    c(dcat_distribution(file, description, meta_id),
-      wasGeneratedAtTime = wasGeneratedAtTime,
+    c(dcat_distribution(file, 
+                        id = id,
+                        description = description,
+                        meta_id = meta_id),
+      wasGeneratedAtTime = as.character(wasGeneratedAtTime),
       wasDerivedFrom = wasDerivedFrom,
       wasGeneratedBy = wasGeneratedBy,
       wasRevisionOf = wasRevisionOf
@@ -65,21 +101,24 @@ prov_distribution <- function(data_in = NULL,
                               data_out = NULL,
                               meta = NULL){
   
-  meta_obj <- prov_data(meta, description = "Metadata document")
-  code_obj <- dcat_script(code, meta_id = meta_id)
+  meta_obj <- dcat_distribution(meta, description = "Metadata document")
+  code_obj <- dcat_script(code, meta_id = meta$id)
   in_obj <- prov_data(data_in, "Input data", meta$id)
   
   out_id <- hash_id(data_out)
   time <- Sys.time()
   activity <- prov_activity(used = c(in_obj$id, code_obj$id),
                             generated = out_id,
-                            endedAtTime = time)
+                            endedAtTime = time,
+                            description = paste("Running R script",
+                                                basename(code))
+                            )
   
   out_obj <- prov_data(data_out, 
                        id = out_id,
                        description = "output data",
                        wasDerivedFrom = in_obj$id,
-                       wwasGeneratedAtTime = time,
+                       wasGeneratedAtTime = time,
                        wasGeneratedBy = activity)
   
 

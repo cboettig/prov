@@ -8,7 +8,7 @@ dcat_dataset <- function(
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode")
 {
   
-  dataset_id <- multhash_ids(lapply(distribution, `[[`, "id"))
+  dataset_id <- multihash_ids(lapply(distribution, `[[`, "id"))
   
   compact(list(
     type = "Dataset",

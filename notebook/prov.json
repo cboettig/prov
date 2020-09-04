@@ -1,0 +1,101 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dct": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "identifier": {
+      "@id": "dct:identifier",
+      "@type": "@id"
+    },
+    "title": "dct:title",
+    "description": "dct:description",
+    "issued": "dct:issued",
+    "format": "dct:format",
+    "license": {
+      "@id": "dct:license",
+      "@type": "@id"
+    },
+    "creator": "dct:creator",
+    "compressFormat": "dcat:compressFormat",
+    "byteSize": "dcat:byteSize",
+    "wasGeneratedAtTime": "prov:wasGeneratedAtTime",
+    "startedAtTime": "prov:startedAtTime",
+    "endedAtTime": "prov:startedAtTime",
+    "wasDerivedFrom": {
+      "@id": "prov:wasDerivedFrom",
+      "@type": "@id"
+    },
+    "wasGeneratedBy": {
+      "@id": "prov:wasGeneratedBy",
+      "@type": "@id"
+    },
+    "generated": {
+      "@id": "prov:generated",
+      "@type": "@id"
+    },
+    "used": {
+      "@id": "prov:used",
+      "@type": "@id"
+    },
+    "wasRevisionOf": {
+      "@id": "prov:wasRevisionOf",
+      "@type": "@id"
+    },
+    "isDocumentedBy": {
+      "@id": "http://purl.org/spar/cito/isDocumentedBy",
+      "@type": "@id"
+    },
+    "distribution": {
+      "@id": "dcat:distribution",
+      "@type": "@id"
+    },
+    "Dataset": "dcat:Dataset",
+    "Activity": "prov:Activity",
+    "Distribution": "dcat:Distribution",
+    "SoftwareSourceCode": "http://schema.org/SoftwareSourceCode"
+  },
+  "type": "Dataset",
+  "id": "hash://sha256/320a739353c1dcc3e5ac4080cd8a969af05410983f54b4851cef1580a074e6e6",
+  "issued": "2020-09-04",
+  "license": ["function () ", "{", "    cat(\"\\nThis software is distributed under the terms of the GNU General\\n\")", "    cat(\"Public License, either Version 2, June 1991 or Version 3, June 2007.\\n\")", "    cat(\"The terms of version 2 of the license are in a file called COPYING\\nwhich you should have received with\\n\")", "    cat(\"this software and which can be displayed by RShowDoc(\\\"COPYING\\\").\\n\")", "    cat(\"Version 3 of the license can be displayed by RShowDoc(\\\"GPL-3\\\").\\n\")", "    cat(\"\\n\")", "    cat(\"Copies of both versions 2 and 3 of the license can be found\\n\")", "    cat(\"at https://www.R-project.org/Licenses/.\\n\")", "    cat(\"\\n\")", "    cat(\"A small number of files (the API header files listed in\\n\")", "    cat(\"R_DOC_DIR/COPYRIGHTS) are distributed under the\\n\")", "    cat(\"LESSER GNU GENERAL PUBLIC LICENSE, version 2.1 or later.\\n\")", "    cat(\"This can be displayed by RShowDoc(\\\"LGPL-2.1\\\"),\\n\")", "    cat(\"or obtained at the URI given.\\n\")", "    cat(\"Version 3 of the license can be displayed by RShowDoc(\\\"LGPL-3\\\").\\n\")", "    cat(\"\\n\")", "    cat(\"'Share and Enjoy.'\\n\\n\")", "}"],
+  "distribution": [
+    {
+      "id": "Input data",
+      "type": "Distribution",
+      "identifier": "Input data",
+      "title": "mtcars.csv",
+      "format": "text/csv",
+      "byteSize": 1281,
+      "wasGeneratedAtTime": 1599261262.0446
+    },
+    {
+      "type": ["Distribution", "SoftwareSourceCode"],
+      "id": "hash://sha256/b470dab98a70a5652856919e51348d12f99cea39ce496e2975ec920338d92b86",
+      "identifier": "hash://sha256/b470dab98a70a5652856919e51348d12f99cea39ce496e2975ec920338d92b86",
+      "title": "example.Rmd",
+      "description": [
+        "R code"
+      ],
+      "format": "application/R"
+    },
+    {
+      "id": "hash://sha256/ff7b8755aa72479c84692592a958a79a08e8567310916bd4c067b9d5455b5db0",
+      "type": "Distribution",
+      "identifier": "hash://sha256/ff7b8755aa72479c84692592a958a79a08e8567310916bd4c067b9d5455b5db0",
+      "title": "out.png",
+      "description": "output data",
+      "format": "image/png",
+      "byteSize": 36914,
+      "wasGeneratedAtTime": 1599261702.3742,
+      "wasDerivedFrom": "Input data",
+      "wasGeneratedBy.type": "Activity",
+      "wasGeneratedBy.id": "urn:uuid:9ac45e84-627a-4457-b949-88edc86c3317",
+      "wasGeneratedBy.description": "Running R script example.Rmd",
+      "wasGeneratedBy.used": ["Input data", "hash://sha256/b470dab98a70a5652856919e51348d12f99cea39ce496e2975ec920338d92b86"],
+      "wasGeneratedBy.generated": "hash://sha256/ff7b8755aa72479c84692592a958a79a08e8567310916bd4c067b9d5455b5db0",
+      "wasGeneratedBy.endedAtTime": "2020-09-04 23:21:42"
+    }
+  ]
+}

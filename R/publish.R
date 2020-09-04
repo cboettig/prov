@@ -10,7 +10,7 @@ publish <- function(data_in = NULL,
                     dir = Sys.getenv("MINIO_HOME"),
                     server =  "https://data.ecoforecast.org"){
   minio_store(c(data_in,code, data_out, meta), dir, server)
-  prov(data_in, code, data_out, meta, provdb)
+  write_prov(data_in, code, data_out, meta, provdb)
   
   }
   

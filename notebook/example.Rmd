@@ -1,0 +1,14 @@
+
+```{r}
+library(tidyverse)
+
+write_csv(mtcars, "mtcars.csv")
+ggplot(mtcars, aes(disp, mpg)) + geom_point() 
+ggsave("out.png")
+```
+
+
+```{r}
+devtools::load_all()
+write_prov("mtcars.csv", "example.Rmd", "out.png")
+```
