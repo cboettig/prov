@@ -19,7 +19,7 @@ write_jsonld <- function(obj,
   if(file.exists(file) && append){
     tmp <- tempfile(fileext=".json")
     jsonlite::write_json(out, tmp, auto_unbox=TRUE, pretty = TRUE)
-    out <- merge_jsonld(tmp, file_test())
+    out <- merge_jsonld(tmp, file)
     writeLines(out, file)
   } else {
     jsonlite::write_json(out, file, auto_unbox=TRUE, pretty = TRUE)
@@ -42,7 +42,7 @@ merge_jsonld <- function(x,y,
   context = system.file("context/dcat_context.json", package = "index")){
   flat_x <- jsonld::jsonld_flatten(x) 
   flat_y <- jsonld::jsonld_flatten(y)
-  json <- merge_json(flat_x, flat_y)
+  json <- jsonld::jsonld_flatten(merge_json(flat_x, flat_y))
   jsonld::jsonld_compact(json, context)
 }
 

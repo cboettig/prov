@@ -14,7 +14,17 @@ multihash_ids <- function(ids){
   paste0("hash://sha256/", paste0(openssl::sha256(paste(ids, collapse="\n"))))
 }
 
-compact <- function (l) Filter(Negate(is.null), l)
+is_uri <- function(x){
+  if(is.null(x)) return(FALSE)  
+  if(file.exists(x)) return(FALSE)
+  if(grepl("^\\w+:.*", x)) return(TRUE)
+  
+}
+
+
+compact <- function (l){
+  Filter(Negate(is.null), l)
+}
 
 #' @importFrom mime guess_type
 compressed_extension <- function(file){

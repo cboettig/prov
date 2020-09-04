@@ -30,6 +30,7 @@ dcat_distribution <- function(file,
                               meta_id = NULL){
   
   if(is.null(file)) return(NULL)
+  if(is_uri(file)) return(file)
   ex <- compressed_extension(file)
   
   compact(list(
@@ -51,13 +52,16 @@ dcat_script <- function(code,
                         format = "application/R",
                         meta_id = NULL){
   
+  if(is.null(code)) return(NULL)
+  if(is_uri(code)) return(code)
+  
   code_id <- hash_id(code)
   compact(list(
     type = c("Distribution", "SoftwareSourceCode"),
     id = code_id,
     identifier = code_id,
     title = basename(code),
-    description = list(compact(description)),
+    description = description,
     format = format,
     isDocumentedBy = meta_id
   ))

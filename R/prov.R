@@ -1,5 +1,24 @@
 
-#' @export 
+
+
+#' Write a provenance trace into JSON-LD using DCAT2 & PROV vocabularies  
+#'
+#' @param data_in path to input data
+#' @param code path to code
+#' @param data_out path to ou
+#' @param meta 
+#' @param creator 
+#' @param title 
+#' @param description 
+#' @param issued 
+#' @param license 
+#' @param provdb 
+#' @param append 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 write_prov <-  function(
   data_in = NULL,
   code = NULL, 
@@ -23,7 +42,7 @@ write_prov <-  function(
        title = title,
        description = description,
        issued = issued,
-       license = licence)
+       license = license)
   
   write_jsonld(prov_obj, provdb, append)
   
@@ -41,16 +60,22 @@ prov <-  function(
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode"
   ){
   
+  
   files <- prov_distribution(data_in = data_in, 
                              code = code, 
                              data_out = data_out, 
                              meta = meta)
+  
+  ## If we have none of these fields, don't package as a dataset
+  if(all(is.null(c(creator, title, description))))
+    return(list("@graph" = files))
+  
   dcat_dataset(distribution = files,
                creator = creator,
                title = title,
                description = description,
                issued = issued,
-               license = licence)
+               license = license)
   
 }
 
@@ -83,6 +108,9 @@ prov_data <- function(file,
                       wasGeneratedBy = NULL,
                       wasRevisionOf = NULL){
   
+  if(is.null(file)) return(NULL)
+  if(is_uri(file)) return(file)
+  
   compact(
     c(dcat_distribution(file, 
                         id = id,
@@ -96,14 +124,18 @@ prov_data <- function(file,
 }
 
 
+
+
 prov_distribution <- function(data_in = NULL,
                               code = NULL, 
                               data_out = NULL,
                               meta = NULL){
   
+  
+  
   meta_obj <- dcat_distribution(meta, description = "Metadata document")
-  code_obj <- dcat_script(code, meta_id = meta$id)
-  in_obj <- prov_data(data_in, "Input data", meta$id)
+  code_obj <- dcat_script(code, description = "R code", meta_id = meta$id)
+  in_obj <- prov_data(data_in, description = "Input data", meta_id = meta$id)
   
   out_id <- hash_id(data_out)
   time <- Sys.time()
@@ -119,7 +151,7 @@ prov_distribution <- function(data_in = NULL,
                        description = "output data",
                        wasDerivedFrom = in_obj$id,
                        wasGeneratedAtTime = time,
-                       wasGeneratedBy = activity)
+                       wasGeneratedBy = list(activity))
   
 
   compact(list(in_obj, code_obj, out_obj, meta_obj))
