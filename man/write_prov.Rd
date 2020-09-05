@@ -47,10 +47,10 @@ Write a provenance trace into JSON-LD using DCAT2 & PROV vocabularies
 \examples{
  
 ## Use temp files for illustration only
+provdb <- tempfile(fileext = ".json")
 input_data <- tempfile(fileext = ".csv")
 output_data <- tempfile(fileext = ".csv")
 code <- tempfile(fileext = ".R")
-prov <- tempfile(fileext = ".json")
 
 ## A minimal workflow: 
 write.csv(mtcars, input_data)
@@ -61,10 +61,11 @@ write.csv(out$coefficients, output_data)
 writeLines("out <- lm(mpg ~ disp, data = mtcars)", code)
 
 ## And here we go: 
-write_prov(input_data, code, output_data, prov = prov)
+write_prov(input_data, code, output_data, provdb = provdb,  
+           append= FALSE)
  
 ## Include a title to group these into a Dataset:
-write_prov(input_data, code, output_data, prov = prov,
+write_prov(input_data, code, output_data, provdb = provdb,
            title = "example dataset with provenance",  append= FALSE)
            
 }

@@ -53,7 +53,7 @@ dcat_script <- function(code,
                         meta_id = NULL){
   
   if(is.null(code)) return(NULL)
-  if(is_uri(code)) return(list(id = file))
+  if(is_uri(code)) return(list(id = code))
   
   code_id <- hash_id(code)
   compact(list(

@@ -20,10 +20,10 @@
 #' @examples
 #'  
 #' ## Use temp files for illustration only
+#' provdb <- tempfile(fileext = ".json")
 #' input_data <- tempfile(fileext = ".csv")
 #' output_data <- tempfile(fileext = ".csv")
 #' code <- tempfile(fileext = ".R")
-#' prov <- tempfile(fileext = ".json")
 #' 
 #' ## A minimal workflow: 
 #' write.csv(mtcars, input_data)
@@ -34,10 +34,11 @@
 #' writeLines("out <- lm(mpg ~ disp, data = mtcars)", code)
 #' 
 #' ## And here we go: 
-#' write_prov(input_data, code, output_data, prov = prov)
+#' write_prov(input_data, code, output_data, provdb = provdb,  
+#'            append= FALSE)
 #'  
 #' ## Include a title to group these into a Dataset:
-#' write_prov(input_data, code, output_data, prov = prov,
+#' write_prov(input_data, code, output_data, provdb = provdb,
 #'            title = "example dataset with provenance",  append= FALSE)
 #'            
 write_prov <-  function(
@@ -160,11 +161,12 @@ prov_distribution <- function(data_in = NULL,
   
   out_id <- hash_id(data_out)
   time <- Sys.time()
+  
+  
   activity <- prov_activity(used = c(in_obj$id, code_obj$id),
                             generated = out_id,
                             endedAtTime = time,
-                            description = paste("Running R script",
-                                                basename(code))
+                            description = paste("Running R script")
                             )
   
   out_obj <- prov_data(data_out, 
