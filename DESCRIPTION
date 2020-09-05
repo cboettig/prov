@@ -1,6 +1,6 @@
-Package: index
+Package: prov
 Version: 0.0.1
-Title: A Semantic Data Store Index
+Title: A Semantic Data Provenance Index
 Description: An index for a data store, permitting generation and querying of
             semantic metadata descriptions of data, including the 'schema.org',
             'prov', 'dcat' dataset vocabularies. 
@@ -17,8 +17,8 @@ ByteCompile: true
 Depends: R (>= 2.10)
 Language: en-US
 VignetteBuilder: knitr
-URL: https://github.com/cboettig/index
-BugReports: https://github.com/cboettig/index/issues
+URL: https://github.com/cboettig/prov
+BugReports: https://github.com/cboettig/prov/issues
 Imports: 
     contentid,
     openssl,

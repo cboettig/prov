@@ -13,33 +13,33 @@ knitr::opts_chunk$set(
 )
 ```
 
-# index
+# prov
 
 <!-- badges: start -->
-[![R build status](https://github.com/cboettig/index/workflows/R-CMD-check/badge.svg)](https://github.com/cboettig/index/actions)
+[![R build status](https://github.com/cboettig/prov/workflows/R-CMD-check/badge.svg)](https://github.com/cboettig/prov/actions)
 <!-- badges: end -->
 
-The goal of `index` is to easily generate provenance records for common workflows using [DCAT-2](https://www.w3.org/TR/vocab-dcat-2/) and [PROV-O](https://www.w3.org/TR/prov-o/) ontologies, using the JSON-LD serialization for semantic (RDF) data.   
+The goal of `prov` is to easily generate provenance records for common workflows using [DCAT-2](https://www.w3.org/TR/vocab-dcat-2/) and [PROV-O](https://www.w3.org/TR/prov-o/) ontologies, using the JSON-LD serialization for semantic (RDF) data.   
 
 ## Installation
 
-You can install the released version of index from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of `prov` from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("index")
+install.packages("prov")
 ```
 
 And the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("cboettig/index")
+devtools::install_github("cboettig/prov")
 ```
 ## Quickstart
 
 
 ```{r example}
-library(index)
+library(prov)
 ```
 
 We'll use temporary files for illustration only (CRAN policy). 

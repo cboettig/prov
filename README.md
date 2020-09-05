@@ -1,39 +1,39 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# index
+# prov
 
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/cboettig/index/workflows/R-CMD-check/badge.svg)](https://github.com/cboettig/index/actions)
+status](https://github.com/cboettig/prov/workflows/R-CMD-check/badge.svg)](https://github.com/cboettig/prov/actions)
 <!-- badges: end -->
 
-The goal of `index` is to easily generate provenance records for common
+The goal of `prov` is to easily generate provenance records for common
 workflows using [DCAT-2](https://www.w3.org/TR/vocab-dcat-2/) and
 [PROV-O](https://www.w3.org/TR/prov-o/) ontologies, using the JSON-LD
 serialization for semantic (RDF) data.
 
 ## Installation
 
-You can install the released version of index from
+You can install the released version of `prov` from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("index")
+install.packages("prov")
 ```
 
 And the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("cboettig/index")
+devtools::install_github("cboettig/prov")
 ```
 
 ## Quickstart
 
 ``` r
-library(index)
+library(prov)
 ```
 
 We’ll use temporary files for illustration only (CRAN policy). Really
@@ -134,17 +134,17 @@ cat(paste(readLines(prov), collapse = "\n"))
 #>       "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
 #>       "type": "Distribution",
 #>       "identifier": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "title": "file35938ef1ec5.csv",
+#>       "title": "file380a5e16523a.csv",
 #>       "description": "Input data",
 #>       "format": "text/csv",
 #>       "byteSize": 1783,
-#>       "wasGeneratedAtTime": "2020-09-05 00:29:07"
+#>       "wasGeneratedAtTime": "2020-09-05 00:34:25"
 #>     },
 #>     {
 #>       "type": ["Distribution", "SoftwareSourceCode"],
 #>       "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
 #>       "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>       "title": "file35936bb0ee27.R",
+#>       "title": "file380a67c79be8.R",
 #>       "description": "R code",
 #>       "format": "application/R"
 #>     },
@@ -152,19 +152,19 @@ cat(paste(readLines(prov), collapse = "\n"))
 #>       "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
 #>       "type": "Distribution",
 #>       "identifier": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "title": "file359377d62a1d.csv",
+#>       "title": "file380a72de93b6.csv",
 #>       "description": "output data",
 #>       "format": "text/csv",
 #>       "byteSize": 65,
-#>       "wasGeneratedAtTime": "2020-09-05 00:29:07",
+#>       "wasGeneratedAtTime": "2020-09-05 00:34:25",
 #>       "wasDerivedFrom": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
 #>       "wasGeneratedBy": {
 #>         "type": "Activity",
-#>         "id": "urn:uuid:06708e28-e264-4587-8ec4-09d40d87968c",
-#>         "description": "Running R script file35936bb0ee27.R",
+#>         "id": "urn:uuid:98ba206e-fb57-473a-9505-030491227718",
+#>         "description": "Running R script file380a67c79be8.R",
 #>         "used": ["hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5", "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"],
 #>         "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>         "endedAtTime": "2020-09-05 00:29:07"
+#>         "endedAtTime": "2020-09-05 00:34:25"
 #>       }
 #>     }
 #>   ]
@@ -268,9 +268,9 @@ cat(paste(readLines(prov), collapse = "\n"))
 #>       "description": "Input data",
 #>       "format": "text/csv",
 #>       "identifier": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "title": "file35938ef1ec5.csv",
+#>       "title": "file380a5e16523a.csv",
 #>       "byteSize": 1783,
-#>       "wasGeneratedAtTime": "2020-09-05 00:29:07"
+#>       "wasGeneratedAtTime": "2020-09-05 00:34:25"
 #>     },
 #>     {
 #>       "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
@@ -281,7 +281,7 @@ cat(paste(readLines(prov), collapse = "\n"))
 #>       "description": "R code",
 #>       "format": "application/R",
 #>       "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>       "title": "file35936bb0ee27.R"
+#>       "title": "file380a67c79be8.R"
 #>     },
 #>     {
 #>       "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
@@ -289,32 +289,32 @@ cat(paste(readLines(prov), collapse = "\n"))
 #>       "description": "output data",
 #>       "format": "text/csv",
 #>       "identifier": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "title": "file359377d62a1d.csv",
+#>       "title": "file380a72de93b6.csv",
 #>       "byteSize": 65,
 #>       "wasDerivedFrom": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "wasGeneratedAtTime": "2020-09-05 00:29:07",
+#>       "wasGeneratedAtTime": "2020-09-05 00:34:25",
 #>       "wasGeneratedBy": [
-#>         "urn:uuid:7c727777-8ce8-4b9d-9da4-6b9435a1990f",
-#>         "urn:uuid:82b093b1-1543-40f5-b708-687f8de40715"
+#>         "urn:uuid:91137fd3-31bd-4787-9773-27579c00f42a",
+#>         "urn:uuid:27fc0bdb-a2f8-4961-bc94-152befa1337a"
 #>       ]
 #>     },
 #>     {
-#>       "id": "urn:uuid:7c727777-8ce8-4b9d-9da4-6b9435a1990f",
+#>       "id": "urn:uuid:27fc0bdb-a2f8-4961-bc94-152befa1337a",
 #>       "type": "Activity",
-#>       "description": "Running R script file35936bb0ee27.R",
+#>       "description": "Running R script file380a67c79be8.R",
 #>       "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "endedAtTime": "2020-09-05 00:29:07",
+#>       "endedAtTime": "2020-09-05 00:34:25",
 #>       "used": [
 #>         "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
 #>         "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
 #>       ]
 #>     },
 #>     {
-#>       "id": "urn:uuid:82b093b1-1543-40f5-b708-687f8de40715",
+#>       "id": "urn:uuid:91137fd3-31bd-4787-9773-27579c00f42a",
 #>       "type": "Activity",
-#>       "description": "Running R script file35936bb0ee27.R",
+#>       "description": "Running R script file380a67c79be8.R",
 #>       "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "endedAtTime": "2020-09-05 00:29:07",
+#>       "endedAtTime": "2020-09-05 00:34:25",
 #>       "used": [
 #>         "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
 #>         "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
