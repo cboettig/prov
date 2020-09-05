@@ -1,0 +1,128 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# index
+
+<!-- badges: start -->
+[![R build status](https://github.com/cboettig/index/workflows/R-CMD-check/badge.svg)](https://github.com/cboettig/index/actions)
+<!-- badges: end -->
+
+The goal of `index` is to easily generate provenance records for common workflows using [DCAT-2](https://www.w3.org/TR/vocab-dcat-2/) and [PROV-O](https://www.w3.org/TR/prov-o/) ontologies, using the JSON-LD serialization for semantic (RDF) data.   
+
+## Installation
+
+You can install the released version of index from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("index")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("cboettig/index")
+```
+## Quickstart
+
+
+```{r example}
+library(index)
+```
+
+We'll use temporary files for illustration only (CRAN policy). 
+Really you would have paths to all these files (or URI identifiers for them).
+
+```{r}
+input_data <- tempfile(fileext = ".csv")
+output_data <- tempfile(fileext = ".csv")
+code <- tempfile(fileext = ".R")
+prov <- tempfile(fileext = ".json")
+```
+
+
+Here's a minimal workflow that generates output data from input data:
+
+```{r}
+out <- lm(mpg ~ disp, data = mtcars)
+
+write.csv(mtcars, input_data)
+write.csv(out$coefficients, output_data)
+```
+
+Let's make a dummy `.R` script just for this example.  
+
+```{r}
+writeLines("out <- lm(mpg ~ disp, data = mtcars)", code)
+```
+
+
+We are now ready to stick the pieces together into a provenance record!
+
+```{r}
+write_prov(input_data, code, output_data, prov = prov)
+```
+
+
+Let's take a look at the results:
+
+```{r}
+cat(paste(readLines(prov), collapse = "\n"))
+```
+
+If we include a `title`, these will be grouped as  to group these into a Dataset.
+We use `append=FALSE` to overwrite the previous record.
+
+```{r}
+write_prov(input_data, code, output_data, prov = prov,
+            title = "example dataset with provenance",  append= FALSE)
+```            
+
+
+```{r include=FALSE}
+unlink(prov)
+```
+
+
+## Reproducible workflows
+
+
+A key feature of content-based provenance trace is that we can run this again and again:
+If we use the same data and get the same result, all our objects have the same ID.  By
+default, these repeated calls append results to the `prov` file, but the only new data
+added indicates a new `Activity` running the code at a different time, but generating
+the same result.  
+
+```{r}
+out <- lm(mpg ~ disp, data = mtcars)
+write.csv(mtcars, input_data)
+write.csv(out$coefficients, output_data)
+write_prov(input_data, code, output_data, prov = prov)
+
+
+out <- lm(mpg ~ disp, data = mtcars)
+write.csv(mtcars, input_data)
+write.csv(out$coefficients, output_data)
+write_prov(input_data, code, output_data, prov = prov)
+
+```
+
+
+```{r}
+cat(paste(readLines(prov), collapse = "\n"))
+```
+
+
+

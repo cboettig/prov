@@ -31,5 +31,6 @@ Suggests:
     knitr,
     rmarkdown,
     testthat,
-    covr
+    covr,
+    spelling
 Roxygen: list(markdown = TRUE)

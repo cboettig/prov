@@ -3,22 +3,43 @@
 
 #' Write a provenance trace into JSON-LD using DCAT2 & PROV vocabularies  
 #'
-#' @param data_in path to input data
-#' @param code path to code
-#' @param data_out path to ou
-#' @param meta 
-#' @param creator 
-#' @param title 
-#' @param description 
-#' @param issued 
-#' @param license 
-#' @param provdb 
-#' @param append 
-#'
-#' @return
+#' @param data_in path or URI for input data
+#' @param code path or URI for code
+#' @param data_out path or URI to output data
+#' @param meta path or URI to metadata describing the workflow
+#' @param creator URI, list node, or text for creator
+#' @param title Dataset title, character string
+#' @param description Dataset description, character string
+#' @param issued publication date, as Date or character object
+#' @param license URL to a copyright license
+#' @param provdb path to output JSON file, default "prov.json"
+#' @param append Should we append to existing json or overwrite it?
+#' 
 #' @export
 #'
 #' @examples
+#'  
+#' ## Use temp files for illustration only
+#' input_data <- tempfile(fileext = ".csv")
+#' output_data <- tempfile(fileext = ".csv")
+#' code <- tempfile(fileext = ".R")
+#' prov <- tempfile(fileext = ".json")
+#' 
+#' ## A minimal workflow: 
+#' write.csv(mtcars, input_data)
+#' out <- lm(mpg ~ disp, data = mtcars)
+#' write.csv(out$coefficients, output_data)
+#' 
+#' # really this would already exist...
+#' writeLines("out <- lm(mpg ~ disp, data = mtcars)", code)
+#' 
+#' ## And here we go: 
+#' write_prov(input_data, code, output_data, prov = prov)
+#'  
+#' ## Include a title to group these into a Dataset:
+#' write_prov(input_data, code, output_data, prov = prov,
+#'            title = "example dataset with provenance",  append= FALSE)
+#'            
 write_prov <-  function(
   data_in = NULL,
   code = NULL, 
@@ -79,7 +100,7 @@ prov <-  function(
   
 }
 
-
+#' @importFrom uuid UUIDgenerate
 prov_activity <- function(
   id = paste0("urn:uuid:", uuid::UUIDgenerate()),
   description = "Running R script",
@@ -109,7 +130,7 @@ prov_data <- function(file,
                       wasRevisionOf = NULL){
   
   if(is.null(file)) return(NULL)
-  if(is_uri(file)) return(file)
+  if(is_uri(file)) return(list(id = file))
   
   compact(
     c(dcat_distribution(file, 

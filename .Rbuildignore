@@ -1,3 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^notebook/$
+^notebook$
+^LICENSE\.md$
+^\.github$
+^README\.Rmd$

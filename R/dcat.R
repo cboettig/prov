@@ -30,7 +30,7 @@ dcat_distribution <- function(file,
                               meta_id = NULL){
   
   if(is.null(file)) return(NULL)
-  if(is_uri(file)) return(file)
+  if(is_uri(file)) return(list(id = file))
   ex <- compressed_extension(file)
   
   compact(list(
@@ -53,7 +53,7 @@ dcat_script <- function(code,
                         meta_id = NULL){
   
   if(is.null(code)) return(NULL)
-  if(is_uri(code)) return(code)
+  if(is_uri(code)) return(list(id = file))
   
   code_id <- hash_id(code)
   compact(list(
