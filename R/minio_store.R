@@ -12,7 +12,7 @@ minio_store <-  function(files,
   ## And then register that public URL
   
   ids <- contentid::store(files, dir = store)
-  paths <- contentid::retrieve(paths, dir = store)
+  paths <- contentid::retrieve(ids, dir = store)
   
   ## This content-store made public via a MINIO server, so we can 
   ## map paths into URLs and register them. 
