@@ -1,6 +1,8 @@
 
+# A dcat:Dataset is an abstract concept, and thus uses a UUID
 dcat_dataset <- function(
   distribution,
+  id =  paste0("urn:uuid:", uuid::UUIDgenerate()),
   creator = NULL,
   title = NULL,
   description = NULL,
@@ -8,11 +10,9 @@ dcat_dataset <- function(
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode")
 {
   
-  dataset_id <- multihash_ids(lapply(distribution, `[[`, "id"))
-  
   compact(list(
     type = "Dataset",
-    id = dataset_id,
+    id = id,
     title = title,
     description = description,
     creator = creator,
@@ -23,7 +23,8 @@ dcat_dataset <- function(
   
 }
 
-
+## dcat:distribution is a particular serialization
+## and thus uses a content-based identifier
 dcat_distribution <- function(file, 
                               id = hash_id(file),
                               description = NULL, 

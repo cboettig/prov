@@ -1,0 +1,36 @@
+{
+  "@context": {
+    "sdo": "http://schema.org/",
+    "id": "@id",
+    "type": "@type",
+    "identifier": {
+      "@id": "sdo:identifier",
+      "@type": "@id"
+    },
+    "title": "sdo:name",
+    "description": "sdo:description",
+    "issued": "sdo:datePublished",
+    "format": "sdo:encodingFormat",
+    "mediaType": "dcat:encodingFormat",
+    "keyword": "sdo:keywords",
+    "theme": "sdo:about",
+    "modified": "dateModified",
+    "publisher": {"@id": "sdo:publisher", "@type": "@id"},
+    "contactPoint": {"@id": "sdo:contactPoint", "@type": "@id"},
+    "spatial": {"@id": "sdo:spatialCoverage", "@type": "@id"},
+    "temporal": {"@id": "sdo:temporalCoverage", "@type": "@id"},
+    "license": { "@id": "sdo:license", "@type": "@id"},
+    "creator": {"@id": "sdo:creator", "@type": "@id"},
+    "byteSize": "sdo:contentSize",
+    "wasGeneratedAtTime": "sdo:dateCreated",
+    "startedAtTime": "sdo:startTime",
+    "endedAtTime": "sdo:endTime",
+    "generated": {"@id": "sdo:result", "@type": "@id"},
+    "used": { "@id": "sdo:object", "@type": "@id" },
+    "distribution": {"@id": "sdo:distribution", "@type": "@id"},
+    "Dataset": "sdo:Dataset",
+    "Activity": "sdo:Action",
+    "Distribution": "sdo:Distribution",
+    "SoftwareSourceCode": "sdo:SoftwareSourceCode"
+  }
+}
