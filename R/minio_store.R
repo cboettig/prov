@@ -28,7 +28,7 @@ publish <- function(data_in = NULL,
                     meta = NULL, 
                     provdb="prov.json",
                     dir = Sys.getenv("MINIO_HOME"),
-                    server =  "https://data.ecoforecast.org"){
+                    server =  "https://minio.thelio.carlboettiger.info"){
   minio_store(c(data_in,code, data_out, meta), dir, server)
   write_prov(data_in, code, data_out, meta, provdb)
   
