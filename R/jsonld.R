@@ -41,7 +41,6 @@ write_jsonld <- function(obj,
 
 
 
-
 #' @importFrom jsonld jsonld_flatten jsonld_compact
 merge_jsonld <- function(x,y, 
   context = context_file()){

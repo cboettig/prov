@@ -1,0 +1,145 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dct": "http://purl.org/dc/terms/",
+    "sdo": "http://schema.org/",
+    "cito": "http://purl.org/spar/cito/",
+    "id": "@id",
+    "type": "@type",
+    "identifier": {
+      "@id": "dct:identifier",
+      "@type": "@id"
+    },
+    "title": "dct:title",
+    "description": "dct:description",
+    "issued": "dct:issued",
+    "format": "dct:format",
+    "mediaType": "dcat:mediaType",
+    "keyword": "dcat:keyword",
+    "theme": "dcat:theme",
+    "modified": "dcat:modified",
+    "downloadURL": "dcat:downloadURL",
+    "publisher": {
+      "@id": "dcat:publisher",
+      "@type": "@id"
+    },
+    "contactPoint": {
+      "@id": "dcat:contactPoint",
+      "@type": "@id"
+    },
+    "spatial": {
+      "@id": "dct:spatial",
+      "@type": "@id"
+    },
+    "temporal": {
+      "@id": "dct:temporal",
+      "@type": "@id"
+    },
+    "license": {
+      "@id": "dct:license",
+      "@type": "@id"
+    },
+    "creator": {
+      "@id": "dcat:creator",
+      "@type": "@id"
+    },
+    "compressFormat": "dcat:compressFormat",
+    "byteSize": "dcat:byteSize",
+    "wasGeneratedAtTime": "prov:wasGeneratedAtTime",
+    "startedAtTime": "prov:startedAtTime",
+    "endedAtTime": "prov:startedAtTime",
+    "wasDerivedFrom": {
+      "@id": "prov:wasDerivedFrom",
+      "@type": "@id"
+    },
+    "wasGeneratedBy": {
+      "@id": "prov:wasGeneratedBy",
+      "@type": "@id"
+    },
+    "generated": {
+      "@id": "prov:generated",
+      "@type": "@id"
+    },
+    "used": {
+      "@id": "prov:used",
+      "@type": "@id"
+    },
+    "wasRevisionOf": {
+      "@id": "prov:wasRevisionOf",
+      "@type": "@id"
+    },
+    "isDocumentedBy": {
+      "@id": "cito:isDocumentedBy",
+      "@type": "@id"
+    },
+    "distribution": {
+      "@id": "dcat:distribution",
+      "@type": "@id"
+    },
+    "Dataset": "dcat:Dataset",
+    "Activity": "prov:Activity",
+    "Distribution": "dcat:Distribution",
+    "SoftwareSourceCode": "sdo:SoftwareSourceCode"
+  },
+  "@graph": [
+    {
+      "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+      "type": "Distribution",
+      "description": "Input data",
+      "format": "text/csv",
+      "identifier": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+      "title": "file558d55cff249.csv",
+      "byteSize": 1783,
+      "wasGeneratedAtTime": "2020-09-07 19:43:28"
+    },
+    {
+      "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
+      "type": [
+        "Distribution",
+        "SoftwareSourceCode"
+      ],
+      "description": "R code",
+      "format": "application/R",
+      "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
+      "title": "file558d4344bd73.R"
+    },
+    {
+      "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+      "type": "Distribution",
+      "description": "output data",
+      "format": "text/csv",
+      "identifier": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+      "title": "file558d241333ea.csv",
+      "byteSize": 65,
+      "wasDerivedFrom": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+      "wasGeneratedAtTime": "2020-09-07 19:43:28",
+      "wasGeneratedBy": [
+        "urn:uuid:948cc7e4-59e8-49f8-a6a4-07f3a7641900",
+        "urn:uuid:63c14fb8-7f20-4819-876b-729bd3ee0444"
+      ]
+    },
+    {
+      "id": "urn:uuid:63c14fb8-7f20-4819-876b-729bd3ee0444",
+      "type": "Activity",
+      "description": "Running R script",
+      "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+      "endedAtTime": "2020-09-07 19:43:28",
+      "used": [
+        "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+        "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
+      ]
+    },
+    {
+      "id": "urn:uuid:948cc7e4-59e8-49f8-a6a4-07f3a7641900",
+      "type": "Activity",
+      "description": "Running R script",
+      "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+      "endedAtTime": "2020-09-07 19:43:28",
+      "used": [
+        "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+        "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
+      ]
+    }
+  ]
+}

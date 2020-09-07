@@ -7,10 +7,7 @@
     "cito": "http://purl.org/spar/cito/",
     "id": "@id",
     "type": "@type",
-    "identifier": {
-      "@id": "dct:identifier",
-      "@type": "@id"
-    },
+    "identifier": {"@id": "dct:identifier", "@type": "@id"},
     "title": "dct:title",
     "description": "dct:description",
     "issued": "dct:issued",
@@ -40,7 +37,7 @@
     "distribution": {"@id": "dcat:distribution", "@type": "@id"},
     "Dataset": "dcat:Dataset",
     "Activity": "prov:Activity",
-    "Distribution": "dcat:DataDownload",
+    "Distribution": "dcat:Distribution",
     "SoftwareSourceCode": "sdo:SoftwareSourceCode"
   }
 }

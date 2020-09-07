@@ -49,7 +49,7 @@ Really you would have paths to all these files (or URI identifiers for them).
 input_data <- tempfile(fileext = ".csv")
 output_data <- tempfile(fileext = ".csv")
 code <- tempfile(fileext = ".R")
-prov <- tempfile(fileext = ".json")
+p <- tempfile(fileext = ".json")
 ```
 
 
@@ -72,27 +72,27 @@ writeLines("out <- lm(mpg ~ disp, data = mtcars)", code)
 We are now ready to stick the pieces together into a provenance record!
 
 ```{r}
-write_prov(input_data, code, output_data, prov = prov)
+write_prov(input_data, code, output_data, prov = p)
 ```
 
 
 Let's take a look at the results:
 
 ```{r}
-cat(paste(readLines(prov), collapse = "\n"))
+writeLines(readLines(p))
 ```
 
 If we include a `title`, these will be grouped as  to group these into a Dataset.
 We use `append=FALSE` to overwrite the previous record.
 
 ```{r}
-write_prov(input_data, code, output_data, prov = prov,
+write_prov(input_data, code, output_data, prov = p,
             title = "example dataset with provenance",  append= FALSE)
 ```            
 
 
 ```{r include=FALSE}
-unlink(prov)
+unlink(p)
 ```
 
 
@@ -109,20 +109,34 @@ the same result.
 out <- lm(mpg ~ disp, data = mtcars)
 write.csv(mtcars, input_data)
 write.csv(out$coefficients, output_data)
-write_prov(input_data, code, output_data, prov = prov)
+write_prov(input_data, code, output_data, prov = p)
 
 
 out <- lm(mpg ~ disp, data = mtcars)
 write.csv(mtcars, input_data)
 write.csv(out$coefficients, output_data)
-write_prov(input_data, code, output_data, prov = prov)
+write_prov(input_data, code, output_data, prov = p)
 
 ```
 
 
 ```{r}
-cat(paste(readLines(prov), collapse = "\n"))
+writeLines(readLines(p))
 ```
+
+
+## Schema.org compatibility
+
+Schema Dot Org (`sdo`) `Dataset`, used in [Google Dataset Search](https://datasetsearch.research.google.com/), is based upon the DCAT `Dataset` concept, and many terms can [crosswalk](https://www.w3.org/TR/vocab-dcat-2/#dcat-sdo) directly between DCAT2 and http://schema.org namespaces.  `prov` allows conversion between DCAT2 and Schema.org representation using an alternative context.  We are not aware of a mapping for most PROV-O terms, but have based the mapping
+around translating `prov:Activity` to `sdo:Action`, `prov:used` to `sdo:object`,
+and `prov:generated` to `sdo:result`.
+
+```{r}
+to_sdo(p)
+```
+
+
+
 
 
 

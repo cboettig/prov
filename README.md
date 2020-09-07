@@ -43,7 +43,7 @@ you would have paths to all these files (or URI identifiers for them).
 input_data <- tempfile(fileext = ".csv")
 output_data <- tempfile(fileext = ".csv")
 code <- tempfile(fileext = ".R")
-prov <- tempfile(fileext = ".json")
+p <- tempfile(fileext = ".json")
 ```
 
 Here’s a minimal workflow that generates output data from input data:
@@ -64,18 +64,20 @@ writeLines("out <- lm(mpg ~ disp, data = mtcars)", code)
 We are now ready to stick the pieces together into a provenance record\!
 
 ``` r
-write_prov(input_data, code, output_data, prov = prov)
+write_prov(input_data, code, output_data, prov = p)
 ```
 
 Let’s take a look at the results:
 
 ``` r
-cat(paste(readLines(prov), collapse = "\n"))
+writeLines(readLines(p))
 #> {
 #>   "@context": {
 #>     "dcat": "http://www.w3.org/ns/dcat#",
 #>     "prov": "http://www.w3.org/ns/prov#",
 #>     "dct": "http://purl.org/dc/terms/",
+#>     "sdo": "http://schema.org/",
+#>     "cito": "http://purl.org/spar/cito/",
 #>     "id": "@id",
 #>     "type": "@type",
 #>     "identifier": {
@@ -86,11 +88,35 @@ cat(paste(readLines(prov), collapse = "\n"))
 #>     "description": "dct:description",
 #>     "issued": "dct:issued",
 #>     "format": "dct:format",
+#>     "mediaType": "dcat:mediaType",
+#>     "keyword": "dcat:keyword",
+#>     "theme": "dcat:theme",
+#>     "modified": "dcat:modified",
+#>     "downloadURL": "dcat:downloadURL",
+#>     "publisher": {
+#>       "@id": "dcat:publisher",
+#>       "@type": "@id"
+#>     },
+#>     "contactPoint": {
+#>       "@id": "dcat:contactPoint",
+#>       "@type": "@id"
+#>     },
+#>     "spatial": {
+#>       "@id": "dct:spatial",
+#>       "@type": "@id"
+#>     },
+#>     "temporal": {
+#>       "@id": "dct:temporal",
+#>       "@type": "@id"
+#>     },
 #>     "license": {
 #>       "@id": "dct:license",
 #>       "@type": "@id"
 #>     },
-#>     "creator": "dct:creator",
+#>     "creator": {
+#>       "@id": "dcat:creator",
+#>       "@type": "@id"
+#>     },
 #>     "compressFormat": "dcat:compressFormat",
 #>     "byteSize": "dcat:byteSize",
 #>     "wasGeneratedAtTime": "prov:wasGeneratedAtTime",
@@ -117,7 +143,7 @@ cat(paste(readLines(prov), collapse = "\n"))
 #>       "@type": "@id"
 #>     },
 #>     "isDocumentedBy": {
-#>       "@id": "http://purl.org/spar/cito/isDocumentedBy",
+#>       "@id": "cito:isDocumentedBy",
 #>       "@type": "@id"
 #>     },
 #>     "distribution": {
@@ -127,46 +153,52 @@ cat(paste(readLines(prov), collapse = "\n"))
 #>     "Dataset": "dcat:Dataset",
 #>     "Activity": "prov:Activity",
 #>     "Distribution": "dcat:Distribution",
-#>     "SoftwareSourceCode": "http://schema.org/SoftwareSourceCode"
+#>     "SoftwareSourceCode": "sdo:SoftwareSourceCode"
 #>   },
 #>   "@graph": [
-#>     {
-#>       "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "type": "Distribution",
-#>       "identifier": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "title": "file380a5e16523a.csv",
-#>       "description": "Input data",
-#>       "format": "text/csv",
-#>       "byteSize": 1783,
-#>       "wasGeneratedAtTime": "2020-09-05 00:34:25"
-#>     },
-#>     {
-#>       "type": ["Distribution", "SoftwareSourceCode"],
-#>       "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>       "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>       "title": "file380a67c79be8.R",
-#>       "description": "R code",
-#>       "format": "application/R"
-#>     },
-#>     {
-#>       "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "type": "Distribution",
-#>       "identifier": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "title": "file380a72de93b6.csv",
-#>       "description": "output data",
-#>       "format": "text/csv",
-#>       "byteSize": 65,
-#>       "wasGeneratedAtTime": "2020-09-05 00:34:25",
-#>       "wasDerivedFrom": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "wasGeneratedBy": {
-#>         "type": "Activity",
-#>         "id": "urn:uuid:98ba206e-fb57-473a-9505-030491227718",
-#>         "description": "Running R script file380a67c79be8.R",
-#>         "used": ["hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5", "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"],
-#>         "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>         "endedAtTime": "2020-09-05 00:34:25"
+#>     [
+#>       {
+#>         "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+#>         "type": "Distribution",
+#>         "identifier": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+#>         "title": "file5a1d4d5f0c43.csv",
+#>         "description": "Input data",
+#>         "format": "text/csv",
+#>         "byteSize": 1783,
+#>         "wasGeneratedAtTime": "2020-09-07 19:53:36"
 #>       }
-#>     }
+#>     ],
+#>     [
+#>       {
+#>         "type": ["Distribution", "SoftwareSourceCode"],
+#>         "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
+#>         "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
+#>         "title": "file5a1d6aebb312.R",
+#>         "description": "R code",
+#>         "format": "application/R"
+#>       }
+#>     ],
+#>     [
+#>       {
+#>         "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+#>         "type": "Distribution",
+#>         "identifier": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+#>         "title": "file5a1dd5bbaa6.csv",
+#>         "description": "output data",
+#>         "format": "text/csv",
+#>         "byteSize": 65,
+#>         "wasGeneratedAtTime": "2020-09-07 19:53:36",
+#>         "wasDerivedFrom": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+#>         "wasGeneratedBy": {
+#>           "type": "Activity",
+#>           "id": "urn:uuid:2f2049d1-edb8-4a3a-b461-de035905a347",
+#>           "description": "Running R script",
+#>           "used": ["hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5", "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"],
+#>           "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+#>           "endedAtTime": "2020-09-07 19:53:36"
+#>         }
+#>       }
+#>     ]
 #>   ]
 #> }
 ```
@@ -175,7 +207,7 @@ If we include a `title`, these will be grouped as to group these into a
 Dataset. We use `append=FALSE` to overwrite the previous record.
 
 ``` r
-write_prov(input_data, code, output_data, prov = prov,
+write_prov(input_data, code, output_data, prov = p,
             title = "example dataset with provenance",  append= FALSE)
 ```
 
@@ -192,22 +224,24 @@ result.
 out <- lm(mpg ~ disp, data = mtcars)
 write.csv(mtcars, input_data)
 write.csv(out$coefficients, output_data)
-write_prov(input_data, code, output_data, prov = prov)
+write_prov(input_data, code, output_data, prov = p)
 
 
 out <- lm(mpg ~ disp, data = mtcars)
 write.csv(mtcars, input_data)
 write.csv(out$coefficients, output_data)
-write_prov(input_data, code, output_data, prov = prov)
+write_prov(input_data, code, output_data, prov = p)
 ```
 
 ``` r
-cat(paste(readLines(prov), collapse = "\n"))
+writeLines(readLines(p))
 #> {
 #>   "@context": {
 #>     "dcat": "http://www.w3.org/ns/dcat#",
 #>     "prov": "http://www.w3.org/ns/prov#",
 #>     "dct": "http://purl.org/dc/terms/",
+#>     "sdo": "http://schema.org/",
+#>     "cito": "http://purl.org/spar/cito/",
 #>     "id": "@id",
 #>     "type": "@type",
 #>     "identifier": {
@@ -218,11 +252,35 @@ cat(paste(readLines(prov), collapse = "\n"))
 #>     "description": "dct:description",
 #>     "issued": "dct:issued",
 #>     "format": "dct:format",
+#>     "mediaType": "dcat:mediaType",
+#>     "keyword": "dcat:keyword",
+#>     "theme": "dcat:theme",
+#>     "modified": "dcat:modified",
+#>     "downloadURL": "dcat:downloadURL",
+#>     "publisher": {
+#>       "@id": "dcat:publisher",
+#>       "@type": "@id"
+#>     },
+#>     "contactPoint": {
+#>       "@id": "dcat:contactPoint",
+#>       "@type": "@id"
+#>     },
+#>     "spatial": {
+#>       "@id": "dct:spatial",
+#>       "@type": "@id"
+#>     },
+#>     "temporal": {
+#>       "@id": "dct:temporal",
+#>       "@type": "@id"
+#>     },
 #>     "license": {
 #>       "@id": "dct:license",
 #>       "@type": "@id"
 #>     },
-#>     "creator": "dct:creator",
+#>     "creator": {
+#>       "@id": "dcat:creator",
+#>       "@type": "@id"
+#>     },
 #>     "compressFormat": "dcat:compressFormat",
 #>     "byteSize": "dcat:byteSize",
 #>     "wasGeneratedAtTime": "prov:wasGeneratedAtTime",
@@ -249,7 +307,7 @@ cat(paste(readLines(prov), collapse = "\n"))
 #>       "@type": "@id"
 #>     },
 #>     "isDocumentedBy": {
-#>       "@id": "http://purl.org/spar/cito/isDocumentedBy",
+#>       "@id": "cito:isDocumentedBy",
 #>       "@type": "@id"
 #>     },
 #>     "distribution": {
@@ -259,7 +317,7 @@ cat(paste(readLines(prov), collapse = "\n"))
 #>     "Dataset": "dcat:Dataset",
 #>     "Activity": "prov:Activity",
 #>     "Distribution": "dcat:Distribution",
-#>     "SoftwareSourceCode": "http://schema.org/SoftwareSourceCode"
+#>     "SoftwareSourceCode": "sdo:SoftwareSourceCode"
 #>   },
 #>   "@graph": [
 #>     {
@@ -268,9 +326,9 @@ cat(paste(readLines(prov), collapse = "\n"))
 #>       "description": "Input data",
 #>       "format": "text/csv",
 #>       "identifier": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "title": "file380a5e16523a.csv",
+#>       "title": "file5a1d4d5f0c43.csv",
 #>       "byteSize": 1783,
-#>       "wasGeneratedAtTime": "2020-09-05 00:34:25"
+#>       "wasGeneratedAtTime": "2020-09-07 19:53:37"
 #>     },
 #>     {
 #>       "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
@@ -281,7 +339,7 @@ cat(paste(readLines(prov), collapse = "\n"))
 #>       "description": "R code",
 #>       "format": "application/R",
 #>       "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>       "title": "file380a67c79be8.R"
+#>       "title": "file5a1d6aebb312.R"
 #>     },
 #>     {
 #>       "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
@@ -289,36 +347,129 @@ cat(paste(readLines(prov), collapse = "\n"))
 #>       "description": "output data",
 #>       "format": "text/csv",
 #>       "identifier": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "title": "file380a72de93b6.csv",
+#>       "title": "file5a1dd5bbaa6.csv",
 #>       "byteSize": 65,
 #>       "wasDerivedFrom": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "wasGeneratedAtTime": "2020-09-05 00:34:25",
+#>       "wasGeneratedAtTime": "2020-09-07 19:53:37",
 #>       "wasGeneratedBy": [
-#>         "urn:uuid:91137fd3-31bd-4787-9773-27579c00f42a",
-#>         "urn:uuid:27fc0bdb-a2f8-4961-bc94-152befa1337a"
+#>         "urn:uuid:1e200059-6254-4b22-a1ae-fff535cb36b3",
+#>         "urn:uuid:9fc1e821-8863-4e08-b7ef-84d52cb75123"
 #>       ]
 #>     },
 #>     {
-#>       "id": "urn:uuid:27fc0bdb-a2f8-4961-bc94-152befa1337a",
+#>       "id": "urn:uuid:1e200059-6254-4b22-a1ae-fff535cb36b3",
 #>       "type": "Activity",
-#>       "description": "Running R script file380a67c79be8.R",
+#>       "description": "Running R script",
 #>       "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "endedAtTime": "2020-09-05 00:34:25",
+#>       "endedAtTime": "2020-09-07 19:53:37",
 #>       "used": [
 #>         "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
 #>         "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
 #>       ]
 #>     },
 #>     {
-#>       "id": "urn:uuid:91137fd3-31bd-4787-9773-27579c00f42a",
+#>       "id": "urn:uuid:9fc1e821-8863-4e08-b7ef-84d52cb75123",
 #>       "type": "Activity",
-#>       "description": "Running R script file380a67c79be8.R",
+#>       "description": "Running R script",
 #>       "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "endedAtTime": "2020-09-05 00:34:25",
+#>       "endedAtTime": "2020-09-07 19:53:37",
 #>       "used": [
 #>         "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
 #>         "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
 #>       ]
+#>     }
+#>   ]
+#> }
+```
+
+## Schema.org compatibility
+
+Schema Dot Org (`sdo`) `Dataset`, used in [Google Dataset
+Search](https://datasetsearch.research.google.com/), is based upon the
+DCAT `Dataset` concept, and many terms can
+[crosswalk](https://www.w3.org/TR/vocab-dcat-2/#dcat-sdo) directly
+between DCAT2 and <http://schema.org> namespaces. `prov` allows
+conversion between DCAT2 and Schema.org representation using an
+alternative context. We are not aware of a mapping for most PROV-O
+terms, but have based the mapping around translating `prov:Activity` to
+`sdo:Action`, `prov:used` to `sdo:object`, and `prov:generated` to
+`sdo:result`.
+
+``` r
+to_sdo(p)
+#> {
+#>   "@context": "http://schema.org/",
+#>   "@graph": [
+#>     {
+#>       "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+#>       "type": "DataDownload",
+#>       "contentSize": 1783,
+#>       "dateCreated": "2020-09-07 19:53:37",
+#>       "description": "Input data",
+#>       "encodingFormat": "text/csv",
+#>       "identifier": {
+#>         "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5"
+#>       },
+#>       "name": "file5a1d4d5f0c43.csv"
+#>     },
+#>     {
+#>       "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
+#>       "type": [
+#>         "DataDownload",
+#>         "SoftwareSourceCode"
+#>       ],
+#>       "description": "R code",
+#>       "encodingFormat": "application/R",
+#>       "identifier": {
+#>         "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
+#>       },
+#>       "name": "file5a1d6aebb312.R"
+#>     },
+#>     {
+#>       "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+#>       "type": "DataDownload",
+#>       "contentSize": 65,
+#>       "dateCreated": "2020-09-07 19:53:37",
+#>       "description": "output data",
+#>       "encodingFormat": "text/csv",
+#>       "identifier": {
+#>         "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51"
+#>       },
+#>       "name": "file5a1dd5bbaa6.csv"
+#>     },
+#>     {
+#>       "id": "urn:uuid:1e200059-6254-4b22-a1ae-fff535cb36b3",
+#>       "type": "Action",
+#>       "description": "Running R script",
+#>       "endTime": "2020-09-07 19:53:37",
+#>       "object": [
+#>         {
+#>           "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5"
+#>         },
+#>         {
+#>           "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
+#>         }
+#>       ],
+#>       "result": {
+#>         "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51"
+#>       }
+#>     },
+#>     {
+#>       "id": "urn:uuid:9fc1e821-8863-4e08-b7ef-84d52cb75123",
+#>       "type": "Action",
+#>       "description": "Running R script",
+#>       "endTime": "2020-09-07 19:53:37",
+#>       "object": [
+#>         {
+#>           "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5"
+#>         },
+#>         {
+#>           "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
+#>         }
+#>       ],
+#>       "result": {
+#>         "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51"
+#>       }
 #>     }
 #>   ]
 #> }
