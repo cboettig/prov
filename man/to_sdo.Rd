@@ -16,6 +16,6 @@ Convert DCAT2 Provenance to Schema.org
 }
 \examples{
 prov <- system.file("examples", "prov.json", package="prov")
-dcat_to_sdo(prov)
+to_sdo(prov)
 
 }

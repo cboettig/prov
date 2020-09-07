@@ -11,7 +11,7 @@
 #' @export
 #' @examples 
 #' prov <- system.file("examples", "prov.json", package="prov")
-#' dcat_to_sdo(prov)
+#' to_sdo(prov)
 #' 
 to_sdo <- function(prov, con = stdout()){
   dcat <- system.file("context", "dcat_context.json", package="prov")
