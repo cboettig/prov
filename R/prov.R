@@ -156,8 +156,8 @@ prov_distribution <- function(data_in = NULL,
   
   
   meta_obj <- dcat_distribution(meta, description = "Metadata document")
-  code_obj <- lapply(code, dcat_script, description = "R code", meta_id = meta$id)
-  in_obj <- lapply(data_in, prov_data, description = "Input data", meta_id = meta$id)
+  code_obj <- lapply(code, dcat_script, description = "R code", meta_id = meta_obj$id)
+  in_obj <- lapply(data_in, prov_data, description = "Input data", meta_id = meta_obj$id)
   
   in_obj_ids <- vapply(in_obj, `[[`, character(1L), "id")
   code_obj_ids <- vapply(code_obj, `[[`, character(1L), "id")
