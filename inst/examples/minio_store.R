@@ -1,35 +1,40 @@
-## 
+library(aws.s3)
+library(contentid)
+library(openssl)
 
-#' @importFrom contentid store register retrieve content_id
+content_path <- function(path){
+  
+  vapply(path, 
+         function(f){
+           hash <- openssl::sha256(file(f, raw = TRUE))
+           sub1 <- substr(hash, 1, 2)
+           sub2 <- substr(hash, 3, 4)
+           file.path(sub1,sub2,hash)
+         },
+         character(1L), 
+         USE.NAMES = FALSE)
+}
+
+s3_url <- function(path, 
+                   bucket,
+                   region = Sys.getenv("AWS_DEFAULT_REGION"), 
+                   endpoint = Sys.getenv("AWS_S3_ENDPOINT")){
+  paste0(paste0("https://", region, ".", endpoint, "/", bucket, "/"), path)
+}
+
+
+
 minio_store <-  function(files, 
-                         server,
-                         dir = Sys.getenv("MINIO_HOME"),
+                         objects = content_path(files),
+                         bucket = "content-store",
                          registries = "https://hash-archive.org"){
   
-  store <- file.path(dir, "content-store")
+  lapply(seq_along(files), function(i) 
+    aws.s3::put_object(files[[i]], objects[[i]], bucket)
+  )
   
-  ## Better workflow would use MINIO REST API to publish files,
-  ## And then register that public URL
-  
-  ids <- contentid::store(files, dir = store)
-  paths <- contentid::retrieve(ids, dir = store)
-  
-  ## This content-store made public via a MINIO server, so we can 
-  ## map paths into URLs and register them. 
-  urls <- file.path(server, gsub(paste0("^", dir), "", paths))
+  urls <- s3_url(objects, bucket = bucket)
   contentid::register(urls, registries)
   
 }
 
-
-publish <- function(data_in = NULL,
-                    code = NULL,
-                    data_out = NULL,
-                    meta = NULL, 
-                    provdb="prov.json",
-                    dir = Sys.getenv("MINIO_HOME"),
-                    server =  "https://minio.thelio.carlboettiger.info"){
-  minio_store(c(data_in,code, data_out, meta), dir, server)
-  write_prov(data_in, code, data_out, meta, provdb)
-  
-}
