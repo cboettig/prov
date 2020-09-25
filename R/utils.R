@@ -23,7 +23,10 @@ is_uri <- function(x){
 
 
 compact <- function (l){
-  Filter(Negate(is.null), l)
+  out <- Filter(Negate(is.null), l)
+  keep <- vapply(out, length, integer(1L)) > 0
+  if(sum(keep) == 0) return(NULL)
+  out[keep]
 }
 
 #' @importFrom mime guess_type

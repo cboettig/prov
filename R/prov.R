@@ -168,19 +168,18 @@ prov_distribution <- function(data_in = NULL,
   time <- Sys.time()
   
   ## no code, no activity to record
-  if(length(code_obj) > 0){
     activity <- prov_activity(used = c(in_obj_ids, code_obj_ids),
                               generated = out_ids,
                               endedAtTime = time,
                               description = paste("Running R script")
                               )
-    }
+
   
-  out_obj <- lapply(data_out, prov_data, 
+  out_obj <- compact(lapply(data_out, prov_data, 
                        description = "output data",
                        wasDerivedFrom = in_obj_ids,
                        wasGeneratedAtTime = time,
-                       wasGeneratedBy = list(activity))
+                       wasGeneratedBy = list(activity)))
   
 
   compact(list(in_obj, code_obj, out_obj, meta_obj))

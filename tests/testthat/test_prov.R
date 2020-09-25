@@ -38,6 +38,8 @@ test_that("one data file only", {
   write_prov(input_data, provdb = provdb, append= FALSE)
   expect_true(file.exists(provdb))
   
+  # writeLines(readLines(provdb))
+  
 })
 
 
