@@ -43,6 +43,26 @@ test_that("one data file only", {
 })
 
 
+test_that("two data files only", {
+  
+  ## Use temp files for illustration only
+  provdb <- tempfile(fileext = ".json")
+  output_data <- tempfile(fileext = ".csv")
+  output_data2 <- tempfile(fileext = ".csv")
+  
+  ## A minimal workflow:
+  write.csv(mtcars, output_data)
+  write.csv(iris, output_data2)
+  
+  write_prov(data_out =  c(output_data, output_data2), 
+             provdb = provdb, append= FALSE)
+  expect_true(file.exists(provdb))
+  
+  writeLines(readLines(provdb))
+  
+})
+
+
 
 test_that("multiple output files", {
   
