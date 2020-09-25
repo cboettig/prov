@@ -156,8 +156,10 @@ prov_distribution <- function(data_in = NULL,
   
   
   meta_obj <- dcat_distribution(meta, description = "Metadata document")
-  code_obj <- lapply(code, dcat_script, description = "R code", meta_id = meta_obj$id)
-  in_obj <- lapply(data_in, prov_data, description = "Input data", meta_id = meta_obj$id)
+  code_obj <- lapply(code, dcat_script, 
+                     description = "R code", meta_id = meta_obj$id)
+  in_obj <- lapply(data_in, prov_data, 
+                   description = "Input data", meta_id = meta_obj$id)
   
   in_obj_ids <- vapply(in_obj, `[[`, character(1L), "id")
   code_obj_ids <- vapply(code_obj, `[[`, character(1L), "id")
@@ -165,12 +167,14 @@ prov_distribution <- function(data_in = NULL,
   out_ids <- vapply(data_out, hash_id, character(1L))
   time <- Sys.time()
   
-  
-  activity <- prov_activity(used = c(in_obj_ids, code_obj_ids),
-                            generated = out_ids,
-                            endedAtTime = time,
-                            description = paste("Running R script")
-                            )
+  ## no code, no activity to record
+  if(length(code_obj) > 0){
+    activity <- prov_activity(used = c(in_obj_ids, code_obj_ids),
+                              generated = out_ids,
+                              endedAtTime = time,
+                              description = paste("Running R script")
+                              )
+    }
   
   out_obj <- lapply(data_out, prov_data, 
                        description = "output data",
