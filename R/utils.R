@@ -53,3 +53,10 @@ merge_json <- function(x,y){
   jsonlite::toJSON(m, auto_unbox = TRUE, pretty = TRUE)
 }
 
+
+rdf_table <- function(doc){
+  jsonld <- jsonld::jsonld_normalize(doc)
+  read.table(text = jsonld, sep = " ", comment.char = "", quote = '"',
+             col.names = c("subject", "predicate", "object", "graph"))
+
+}

@@ -1,0 +1,115 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dct": "http://purl.org/dc/terms/",
+    "sdo": "http://schema.org/",
+    "cito": "http://purl.org/spar/cito/",
+    "id": "@id",
+    "type": "@type",
+    "identifier": {
+      "@id": "dct:identifier",
+      "@type": "@id"
+    },
+    "title": "dct:title",
+    "description": "dct:description",
+    "issued": "dct:issued",
+    "format": "dct:format",
+    "mediaType": "dcat:mediaType",
+    "keyword": "dcat:keyword",
+    "theme": "dcat:theme",
+    "modified": "dcat:modified",
+    "downloadURL": "dcat:downloadURL",
+    "publisher": {
+      "@id": "dcat:publisher",
+      "@type": "@id"
+    },
+    "contactPoint": {
+      "@id": "dcat:contactPoint",
+      "@type": "@id"
+    },
+    "spatial": {
+      "@id": "dct:spatial",
+      "@type": "@id"
+    },
+    "temporal": {
+      "@id": "dct:temporal",
+      "@type": "@id"
+    },
+    "license": {
+      "@id": "dct:license",
+      "@type": "@id"
+    },
+    "creator": {
+      "@id": "dcat:creator",
+      "@type": "@id"
+    },
+    "compressFormat": "dcat:compressFormat",
+    "byteSize": "dcat:byteSize",
+    "wasGeneratedAtTime": "prov:wasGeneratedAtTime",
+    "startedAtTime": "prov:startedAtTime",
+    "endedAtTime": "prov:startedAtTime",
+    "wasDerivedFrom": {
+      "@id": "prov:wasDerivedFrom",
+      "@type": "@id"
+    },
+    "wasGeneratedBy": {
+      "@id": "prov:wasGeneratedBy",
+      "@type": "@id"
+    },
+    "generated": {
+      "@id": "prov:generated",
+      "@type": "@id"
+    },
+    "used": {
+      "@id": "prov:used",
+      "@type": "@id"
+    },
+    "wasRevisionOf": {
+      "@id": "prov:wasRevisionOf",
+      "@type": "@id"
+    },
+    "isDocumentedBy": {
+      "@id": "cito:isDocumentedBy",
+      "@type": "@id"
+    },
+    "distribution": {
+      "@id": "dcat:distribution",
+      "@type": "@id"
+    },
+    "Dataset": "dcat:Dataset",
+    "Activity": "prov:Activity",
+    "Distribution": "dcat:Distribution",
+    "SoftwareSourceCode": "sdo:SoftwareSourceCode"
+  },
+  "@graph": [
+    {
+      "id": "hash://sha256/855ce594426788adf4eee8d77add1cbf1c226c0ec48841d63c68d392f4b0e6ea",
+      "type": "Distribution",
+      "description": "Input data",
+      "format": "application/gzip",
+      "identifier": "hash://sha256/855ce594426788adf4eee8d77add1cbf1c226c0ec48841d63c68d392f4b0e6ea",
+      "title": "beetles-targets.csv.gz",
+      "byteSize": 17708,
+      "compressFormat": "gzip",
+      "wasGeneratedAtTime": "2021-04-06 21:23:08"
+    },
+    {
+      "id": "hash://sha256/aef34ea8a0528d5bfa484f0db1cd26a9c0a67b7cfd15ede6062073626a0211ec",
+      "type": "Distribution",
+      "description": "output data",
+      "format": "text/csv",
+      "identifier": "hash://sha256/aef34ea8a0528d5bfa484f0db1cd26a9c0a67b7cfd15ede6062073626a0211ec",
+      "title": "beetles-forecast-rw.csv",
+      "byteSize": 34877,
+      "wasDerivedFrom": [
+        "hash://sha256/855ce594426788adf4eee8d77add1cbf1c226c0ec48841d63c68d392f4b0e6ea",
+        "https://data.ecoforecast.org/targets/beetles/beetles-targets.csv.gz"
+      ],
+      "wasGeneratedAtTime": [
+        "2021-04-06 21:23:21",
+        "2021-04-06 21:11:46"
+      ]
+    }
+  ]
+}

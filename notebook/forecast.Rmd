@@ -1,0 +1,198 @@
+```{r setup}
+library(tidyverse)
+library(fable)
+library(tsibble)
+library(contentid)
+library(prov)
+```
+A simple random-walk forecast:
+
+```{r}
+
+rw_forecast <- function(df){
+  ## read data, format as time-series for each siteID
+  ## drops last 90 days (to enable scoring) & use explicit NAs
+  ts <- df %>% 
+    tsibble::as_tsibble(index=time, key=siteID) %>% 
+    dplyr::filter(time < max(time) - 90) %>% 
+    tsibble::fill_gaps()
+
+  ## compute model, generate forecast with fable
+  ts %>%
+    fabletools::model(null = fable::RW(abundance)) %>%
+    fabletools::forecast(h = "90 days") %>% 
+    dplyr::mutate(sd = sqrt(distributional::variance(abundance))) %>% 
+    tibble::as_tibble() %>%
+    dplyr::select(time, siteID, model = .model, mean = .mean, sd)
+}
+```
+
+A standard workflow, without explicit provenance:
+
+```{r}
+
+
+in_file <- "beetles-targets.csv.gz"
+out_file <- "beetles-forecast-rw.csv"
+
+download.file(
+  "https://data.ecoforecast.org/targets/beetles/beetles-targets.csv.gz",
+  in_file)
+
+read_csv(in_file) %>%
+  rw_forecast() %>%
+  write_csv(out_file)
+```
+In this approach, we can optionally and transparently add provenance-tracing of any data files *without altering the workflow code*.  
+This has two steps: storing the data and recoding the provenance.  
+The order isn't important. 
+In fact, neither step strictly requires the other: we could store files but generate any explicit provenance trace, or we could record the provenance without actually storing the content (perhaps because it is stored somewhere else or is too big to store, or because it is not relevant to the use case.)
+
+### Local content store
+
+We explicitly place input and output (possibly code files and metadata files too) into a local content store:
+
+```{r}
+contentid::store(in_file)
+contentid::store(out_file)
+```
+This is a local path that acts as a file cache. This is not meant to be archival, and we may periodically purge the cache to free space.  
+
+### Recording data provenance
+
+
+Declare provenance relationships between input and output data:
+
+```{r}
+write_prov(data_in = in_file, data_out = out_file,  prov = "forecast_prov.json")
+```
+
+
+
+# A more complex workflow
+
+A more realistic workflow may break steps up into separate scripts for downloading or cleaning data and analyzing the data. 
+
+```{r}
+
+writeLines('
+download.file(
+  "https://data.ecoforecast.org/targets/beetles/beetles-targets.csv.gz",
+  "beetles-targets.csv.gz"
+)
+', 
+'00-download_data.R')
+
+writeLines('
+library(tidyverse)
+
+read_csv("beetles-targets.csv.gz") %>%
+  rw_forecast() %>%
+  write_csv("beetles-forecast-rw.csv")
+', 
+'01-run_analysis.R')
+
+```
+
+A typical R user isn't going to write a `Makefile` to run this.
+A natural apporach is to run the workflow steps with `source()` commands:
+
+```{r}
+source("00-download_data.R")
+source("01-run_analysis.R")
+```
+
+### Adding provenance
+
+
+```{r}
+contentid::store("beetles-targets.csv.gz")
+contentid::store("beetles-forecast-rw.csv")
+
+write_prov(code = "00-download_data.R", 
+           data_out = "beetles-targets.csv.gz",
+           prov = "forecast_prov.json")
+write_prov(code = "01-run_analysis.R",
+           data_in = "beetles-targets.csv.gz", 
+           data_out = "beetles-forecast-rw.csv", 
+           prov = "forecast_prov.json")
+
+
+```
+
+
+Just to be thorough we could add our code file to the local content store.  
+It is more likely that we are already managing code on GitHub, (possibly using a private repository) and could thus generate a permanent identifier to the code once we make our repository public, by triggering an archive event on SoftwareHeritage.  
+Again, this is the advantage of the modular approach -- we can track everything locally and privately from the start, or not.  
+
+
+Whether or not we do this, if our code is published to GitHub, we can use SoftwareHeritage to make a permanent snapshot of it.  The individual code files could then be resolved directly from softwareHe
+
+
+```{r}
+contentid::store("01-run_analysis.R")
+
+```
+
+## Provenance-based workflow
+
+
+Re-run with the most recent input data:
+
+```{r}
+df <- rdf_table("forecast_prov.json")
+p <- rdf_properties(df)
+```
+
+
+```{r}
+rdf_filter <- function(df, key, value = NULL){
+  tmp <- filter(df, grepl(key, predicate))
+  if(!is.null(value)){
+    tmp <- filter(tmp, object == value)
+    tmp <- inner_join(select(tmp, subject), df, by = "subject")
+  }
+  tmp
+}
+
+df %>% 
+rdf_filter(key = "title", value = "beetles-targets.csv.gz") %>% 
+rdf_filter(key = "wasGeneratedAtTime")
+
+title <- function(df, title){ 
+  df %>% filter(predicate = "<http://purl.org/dc/terms/title>", object == title) %>% 
+    select(subject) %>% inner_join(df)
+}
+
+
+```
+
+
+
+Run forecast with `prov` based tracing.  Add conditional evaluations based on prov conditions. 
+
+```{r}
+## We'll use a local tsv registry only
+Sys.setenv(CONTENTID_REGISTRIES=paste(contentid:::default_tsv(), contentid::content_dir(), sep=", "))
+
+
+ 
+
+## Register the URL and download by ID.  We have to download to hash content.  
+## Memoised forecast function will only re-run on unique input ids.
+target_id <- store("https://data.ecoforecast.org/targets/aquatics/aquatics-targets.csv.gz")
+local <- retrieve(target_id)
+
+if(is.null(local)){ # No local copy of this ID, so recompute
+  target_file <- resolve(target_id)
+  rw_forecast(target_file, "rw_forecast.csv")
+  
+  # add output file to local store
+  forecast_id <- store("rw_forecast.csv")
+  
+} else {
+  
+}
+
+resolve(forecast_id) %>% score()
+```
