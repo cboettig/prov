@@ -70,6 +70,10 @@ write_prov <-  function(
   
 }
 
+#' generate provenance information
+#' 
+#' @inheritParams write_prov
+#' @export
 prov <-  function(
   data_in = NULL,
   code = NULL, 

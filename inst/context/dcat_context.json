@@ -27,7 +27,7 @@
     "byteSize": "dcat:byteSize",
     "wasGeneratedAtTime": "prov:wasGeneratedAtTime",
     "startedAtTime": "prov:startedAtTime",
-    "endedAtTime": "prov:startedAtTime",
+    "endedAtTime": "prov:endedAtTime",
     "wasDerivedFrom": {"@id": "prov:wasDerivedFrom", "@type": "@id"},
     "wasGeneratedBy": {"@id": "prov:wasGeneratedBy", "@type": "@id"},
     "generated": {"@id": "prov:generated", "@type": "@id"},

@@ -3,30 +3,31 @@
 # 
 # Note that certain properties may be vector-valued (subject _:b0 wasGeneratedBy _:b1,_:b2)
 # which does not permit a tabular representation.  
-rdf_properties <- function(df, strip_namespace=TRUE, collapse = NULL) {
+rdf_properties <- function(df, strip_namespace=TRUE, collapse = ", ") {
   if(strip_namespace){
     predicate <- df$predicate
     predicate <- gsub(">$", "", gsub("^<", "", predicate))
     predicate <- gsub(".*#(\\w+)$", "\\1", basename(predicate))
     df$predicate <- predicate
   }
-
-  ## Collapse vector-valued 
+  
+  ## see how to do this without dplyr...?
+  ## see https://gist.github.com/hadley/c430501804349d382ce90754936ab8ec
+  ## Collapse if vector-valued 
   if(!is.null(collapse)){
   df <- df %>% 
     group_by(subject, predicate) %>%
     summarise(object = paste(object, collapse=collapse),
               .groups = "drop")
   }
+
+  ## See how to do thiw without tidyr...? see stats::reshape
+  out <- df %>% 
+    tidyr::pivot_wider(c("subject"), 
+                       names_from = "predicate",
+                       values_from = object)
   
-  suppressWarnings({
-    out <- df %>% 
-      tidyr::pivot_wider(c("subject"), 
-                         names_from = "predicate",
-                         values_from = object)
-    })
-  if(any(vapply(out, is.list, logical(1L))))
-    out <- tidyr::unnest(out, dplyr::everything())
+
   
   apply_datatype(out)
 }
@@ -35,13 +36,13 @@ apply_datatype <- function(df){
   cols <- colnames(df)
   for(col in cols){
     values <- df[[col]]
-    if(all(grepl("\\^\\^<http://www.w3.org/2001/XMLSchema#integer>", values))){
+    if(any(grepl("\\^\\^<http://www.w3.org/2001/XMLSchema#integer>", values))){
       df[[col]] <- as.integer(gsub("\\^\\^<http://www.w3.org/2001/XMLSchema#integer>", "", values))
-    }
+    } 
     ## Add other types
     
     ## Lastly, strip any unresolved type declarations, leaving as char data
-    if(all(grepl("\\^\\^<.*", values))){
+    else if(any(grepl("\\^\\^<.*", values))){
       df[[col]] <- as.integer(gsub("\\^\\^.*", "", values))
     }
   }
