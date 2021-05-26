@@ -184,6 +184,7 @@ prov_distribution <- function(data_in = NULL,
   
   out_obj <- compact(lapply(data_out, prov_data, 
                        description = "output data",
+                       meta_id = meta_obj$id,
                        wasDerivedFrom = in_obj_ids,
                        wasGeneratedAtTime = time,
                        wasGeneratedBy = list(activity)))
