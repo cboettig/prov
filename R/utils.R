@@ -31,18 +31,15 @@ compact <- function (l){
 
 #' @importFrom mime guess_type
 compressed_extension <- function(file){
-  ext <- function(x) gsub(".*[.](\\w+)$", "\\1", basename(x))
-  ex <- ext(file)
-  compressFormat = switch(ex, 
-                          "gz" = "gzip",
-                          "bz2" = "bz2",
-                          NULL)
-  if(!is.null(compressFormat)){
-    format <- mime::guess_type(gsub(compressFormat, "", file))
-  } else{
-    format <- mime::guess_type(file)
-  }
   
+  compressFormat <- rep(NA_character_, length(file))
+  compressed <- grepl("(\\.gz$)|(\\.bz2$)|(\\.xz)", file)
+  compressed_ext <- tools::file_ext(file[compressed])
+  compressFormat[compressed] <- gsub("gz", "gzip", compressed_ext)
+  
+  file[compressed] <- tools::file_path_sans_ext(file[compressed])
+  format <- mime::guess_type(file)
+
   list(format = format, compressFormat = compressFormat)
 }
 
