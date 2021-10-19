@@ -24,8 +24,10 @@ Imports:
     jsonld,
     jsonlite,
     mime,
-    uuid
-RoxygenNote: 7.1.1
+    uuid,
+    vroom,
+    contentid
+RoxygenNote: 7.1.2
 Suggests: 
     knitr,
     rmarkdown,

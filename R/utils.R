@@ -56,7 +56,7 @@ merge_json <- function(x,y){
 
 rdf_table <- function(doc){
   jsonld <- jsonld::jsonld_normalize(doc)
-  read.table(text = jsonld, sep = " ", comment.char = "", quote = '"',
+  utils::read.table(text = jsonld, sep = " ", comment.char = "", quote = '"',
              col.names = c("subject", "predicate", "object", "graph"))
 
 }
