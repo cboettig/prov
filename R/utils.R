@@ -1,8 +1,11 @@
 
 #' @importFrom openssl sha256
 hash_id <- function(f){
-  if(is.null(f)) return(NULL)
-  paste0("hash://sha256/", openssl::sha256(file(f, raw = TRUE)))
+  if(all(is.null(f))) return(NULL)
+  vapply(f, 
+         function(f)
+           paste0("hash://sha256/", openssl::sha256(file(f, raw = TRUE))),
+         character(1L))
 }
 
 multihash_file <- function(files){
