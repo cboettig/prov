@@ -21,7 +21,7 @@ write_prov_tsv <- function(
   provdb = "prov.tsv",
   append = file.exists(provdb)){
   
-    meta_id <- contentid::content_id(meta)
+    meta_id <- hash_id(meta)
     df <- rbind(
     row_distribution(data_in, "input data", issued, theme, keyword, isDocumentedBy = meta_id),
     row_distribution(data_out, "output data", issued, theme,  keyword, isDocumentedBy = meta_id),
@@ -46,7 +46,7 @@ row_distribution <- function(file,
   
   suppressWarnings({
   data.frame(
-    "id"= contentid::content_id(file),
+    "id"= hash_id(file),
     "type"= "Distribution",
     "title"= file,
     "description"= description,
