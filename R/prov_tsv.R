@@ -56,7 +56,7 @@ row_distribution <- function(file,
     "theme"= theme,
     "compressFormat"= as_char(ex$compressFormat),
     "byteSize"=  file.size(file),
-    "isDocumentedBy"= isDocumentedBy)
+    "isDocumentedBy"= as_char(isDocumentedBy))
   })
 }
   
