@@ -117,10 +117,12 @@ write_prov(input_data, code, output_data, prov = p)
 out <- lm(mpg ~ disp, data = mtcars)
 write.csv(mtcars, input_data)
 write.csv(out$coefficients, output_data)
-write_prov(input_data, code, output_data, prov = p)
+write_prov(title = "An example dataset",
+           input_data, code, output_data, prov = p)
 
 ```
 
+Note that if `write_prov` gets neither a title, description, or creator, it will not generate a Dataset element, but instead serialize a `graph` of individual `distribution` objects.  
 
 ```{r}
 writeLines(readLines(p))
@@ -128,6 +130,28 @@ writeLines(readLines(p))
 
 
 ## Schema.org compatibility
+
+We can generate provenance data directly in Schema.org Dataset by setting the
+optional `schema` argument when writing to JSON-LD:
+
+```{r}
+write_prov(title = "An example dataset",
+           creator = list(givenName = "John", familyName = "Public"),
+           input_data, code, output_data, prov = p,
+           schema = "http://schema.org", append = FALSE)
+```
+
+
+Note that `creator` must be given a named list with appropriate schema.org elements, as it is uninterpreted.  
+
+
+```{r}
+writeLines(readLines(p))
+```
+
+
+
+
 
 Schema Dot Org (`sdo`) `Dataset`, used in [Google Dataset Search](https://datasetsearch.research.google.com/), is based upon the DCAT `Dataset` concept, and many terms can [crosswalk](https://www.w3.org/TR/vocab-dcat-2/#dcat-sdo) directly between DCAT2 and http://schema.org namespaces.  `prov` allows conversion between DCAT2 and Schema.org representation using an alternative context.  We are not aware of a mapping for most PROV-O terms, but have based the mapping
 around translating `prov:Activity` to `sdo:Action`, `prov:used` to `sdo:object`,
