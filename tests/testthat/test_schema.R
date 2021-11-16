@@ -16,11 +16,28 @@ test_that("prov in-code-out", {
   # really this would already exist...
   writeLines("out <- lm(mpg ~ disp, data = mtcars)", code)
   
+  
+  p <- prov(input_data, code, output_data)
+  
   ## And here we go:
   write_prov(input_data, code, output_data, provdb = provdb,
              append= FALSE, schema = "http://schema.org")
   
   expect_true(file.exists(provdb))
+  
+  ## And here we go:
+  write_prov(code = code,
+             data_out = c(input_data, output_data),
+             title = "Example Dataset",
+             description = "really this is just for illustrative purposes",
+             creator = list(givenName = "John", 
+                            familyName = "Public", 
+                            email="john@public.com"),
+             provdb = provdb,
+             append= FALSE, 
+             schema = "http://schema.org")
+  
+  
   
 })
 
@@ -41,7 +58,8 @@ test_that("Dataset", {
                             familyName = "Public", 
                             email="john@public.com"),
              provdb = provdb,
-             append= FALSE, schema = "http://schema.org")
+             append= FALSE, 
+             schema = "http://schema.org")
   
   expect_true(file.exists(provdb))
   

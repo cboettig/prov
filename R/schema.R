@@ -19,7 +19,8 @@ schema_dataset <- function(
     creator = creator,
     issued = issued,
     license = license,
-    distribution = distribution
+    distribution = distribution,
+    ...
   ))
   
 }
@@ -110,9 +111,9 @@ schema_provenance <- function(data_in = NULL,
                               meta = NULL){
   
   
-  code_obj <- lapply(code, schema_script, 
+  code_obj <- lapply(unname(code), schema_script, 
                      description = "R code")
-  in_obj <- lapply(data_in, schema_data, 
+  in_obj <- lapply(unname(data_in), schema_data, 
                    description = "Input data")
   
   in_obj_ids <- vapply(in_obj, `[[`, character(1L), "id")
@@ -132,14 +133,14 @@ schema_provenance <- function(data_in = NULL,
     activity <- NULL
   }
   
-  out_obj <- compact(lapply(data_out, schema_data, 
+  out_obj <- compact(lapply(unname(data_out), schema_data, 
                             description = "output data",
                             wasDerivedFrom = in_obj_ids,
                             wasGeneratedAtTime = time,
                             wasGeneratedBy = list(activity)))
   
   
-  compact(list(in_obj, code_obj, out_obj))
+  compact(c(in_obj, code_obj, out_obj))
 }      
 
 

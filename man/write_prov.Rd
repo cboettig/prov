@@ -55,6 +55,10 @@ If creator, title, and description are all empty, will serialize
 only a graph of distribution (data download) elements, not a
 Dataset.
 
+Additional elements passed through \code{...} must be explicitly namespaced,
+e.g. \code{dcat:version}, when using DCAT2 schema. When using schema.org,
+elements must be in schema.org namespace.
+
 Provenance can be expressed in (purely) schema.org or as DCAT2
 (includes terms from DCTERMS, PROV, DCAT2, CITO ontologies).
 The latter is more expressive in terms of provenance.

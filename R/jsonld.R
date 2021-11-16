@@ -59,7 +59,14 @@ merge_jsonld <- function(x,y, context = context_file()){
   flat_x <- jsonld::jsonld_flatten(x) 
   flat_y <- jsonld::jsonld_flatten(y)
   json <- jsonld::jsonld_flatten(merge_json(flat_x, flat_y))
-  jsonld::jsonld_compact(json, context)
+  compact <- jsonld::jsonld_compact(json, context)
+  if(grepl('"Dataset"', compact)){
+    frame <- c(jsonlite::read_json(context), list("@type" = "Dataset"))
+    out <- jsonld::jsonld_frame(compact, jsonlite::toJSON(frame))
+  } else {
+    out <- compact
+  }
+  out
 }
 
 append_ld <- function(obj, json, context = context_file()){

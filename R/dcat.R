@@ -126,9 +126,9 @@ dcat_provenance <- function(data_in = NULL,
   
   
   meta_obj <- dcat_distribution(meta, description = "Metadata document")
-  code_obj <- lapply(code, dcat_script, 
+  code_obj <- lapply(unname(code), dcat_script, 
                      description = "R code", meta_id = meta_obj$id)
-  in_obj <- lapply(data_in, dcat_data, 
+  in_obj <- lapply(unname(data_in), dcat_data, 
                    description = "Input data", meta_id = meta_obj$id)
   
   in_obj_ids <- vapply(in_obj, `[[`, character(1L), "id")
@@ -148,7 +148,7 @@ dcat_provenance <- function(data_in = NULL,
     activity <- NULL
   }
   
-  out_obj <- compact(lapply(data_out, dcat_data, 
+  out_obj <- compact(lapply(unname(data_out), dcat_data, 
                             description = "output data",
                             meta_id = meta_obj$id,
                             wasDerivedFrom = in_obj_ids,
@@ -156,7 +156,7 @@ dcat_provenance <- function(data_in = NULL,
                             wasGeneratedBy = list(activity)))
   
   
-  compact(list(in_obj, code_obj, out_obj, meta_obj))
+  compact(c(in_obj, code_obj, out_obj, meta_obj))
 }      
 
 
