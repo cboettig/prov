@@ -16,6 +16,11 @@
 #' @param append Should we append to existing json or overwrite it?
 #' @param schema Use schema.org or DCAT2 schema? See details.
 #' @details 
+#' 
+#' If creator, title, and description are all empty, will serialize
+#' only a graph of distribution (data download) elements, not a 
+#' Dataset.
+#' 
 #' Provenance can be expressed in (purely) schema.org or as DCAT2 
 #' (includes terms from DCTERMS, PROV, DCAT2, CITO ontologies). 
 #' The latter is more expressive in terms of provenance.

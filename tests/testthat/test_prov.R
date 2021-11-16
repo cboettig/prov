@@ -91,5 +91,50 @@ test_that("multiple output files", {
 })
 
 
+test_that("Dataset", {
+  
+  ## Use temp files for illustration only
+  provdb <- tempfile(fileext = ".json")
+  input_data <- tempfile(fileext = ".csv")
+  
+  ## A minimal workflow:
+  write.csv(mtcars, input_data)
+  
+  ## And here we go:
+  write_prov(input_data, 
+             title = "Example Dataset",
+             description = "really this is just for illustrative purposes",
+             creator = list(givenName = "John", 
+                            familyName = "Public", 
+                            email="john@public.com"),
+             provdb = provdb,
+             append= FALSE, schema = "http://schema.org")
+  
+  expect_true(file.exists(provdb))
+  
+})
 
 
+
+test_that("Dataset", {
+  
+  ## Use temp files for illustration only
+  provdb <- tempfile(fileext = ".json")
+  input_data <- tempfile(fileext = ".csv")
+  
+  ## A minimal workflow:
+  write.csv(mtcars, input_data)
+  
+  ## And here we go:
+  write_prov(input_data, 
+             title = "Example Dataset",
+             description = "really this is just for illustrative purposes",
+             creator = list(givenName = "John", 
+                            familyName = "Public", 
+                            email="john@public.com"),
+             provdb = provdb,
+             append= FALSE)
+  
+  expect_true(file.exists(provdb))
+  
+})
