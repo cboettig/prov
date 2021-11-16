@@ -5,8 +5,7 @@
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/cboettig/prov/workflows/R-CMD-check/badge.svg)](https://github.com/cboettig/prov/actions)
+[![R-CMD-check](https://github.com/cboettig/prov/workflows/R-CMD-check/badge.svg)](https://github.com/cboettig/prov/actions)
 <!-- badges: end -->
 
 `prov` lets you easily generate provenance records for common workflows
@@ -169,12 +168,12 @@ writeLines(readLines(p))
 #>         "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
 #>         "type": "Distribution",
 #>         "identifier": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>         "title": "file2d7e6738b8e460.csv",
+#>         "title": "file2d7ff97f803a4.csv",
 #>         "description": "Input data",
 #>         "format": "text/csv",
 #>         "compressFormat": null,
 #>         "byteSize": 1783,
-#>         "wasGeneratedAtTime": "2021-11-16 03:20:28"
+#>         "wasGeneratedAtTime": "2021-11-16 03:22:40"
 #>       }
 #>     ],
 #>     [
@@ -182,7 +181,7 @@ writeLines(readLines(p))
 #>         "type": ["Distribution", "SoftwareSourceCode"],
 #>         "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
 #>         "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>         "title": "file2d7e67442a90b0.R",
+#>         "title": "file2d7ff941cfa77c.R",
 #>         "description": "R code",
 #>         "format": "application/R"
 #>       }
@@ -192,20 +191,20 @@ writeLines(readLines(p))
 #>         "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
 #>         "type": "Distribution",
 #>         "identifier": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>         "title": "file2d7e6718774b2b.csv",
+#>         "title": "file2d7ff954a03b4.csv",
 #>         "description": "output data",
 #>         "format": "text/csv",
 #>         "compressFormat": null,
 #>         "byteSize": 65,
-#>         "wasGeneratedAtTime": "2021-11-16 03:20:28",
+#>         "wasGeneratedAtTime": "2021-11-16 03:22:40",
 #>         "wasDerivedFrom": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
 #>         "wasGeneratedBy": {
 #>           "type": "Activity",
-#>           "id": "urn:uuid:ffff502e-ecee-4f5c-96c5-82bdcf355295",
+#>           "id": "urn:uuid:0d8f090e-bdfe-41b3-898a-dacaea492344",
 #>           "description": "Running R script",
 #>           "used": ["hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5", "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"],
 #>           "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>           "endedAtTime": "2021-11-16 03:20:28"
+#>           "endedAtTime": "2021-11-16 03:22:40"
 #>         }
 #>       }
 #>     ]
@@ -341,9 +340,9 @@ writeLines(readLines(p))
 #>       "description": "Input data",
 #>       "format": "text/csv",
 #>       "identifier": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "title": "file2d7e6738b8e460.csv",
+#>       "title": "file2d7ff97f803a4.csv",
 #>       "byteSize": 1783,
-#>       "wasGeneratedAtTime": "2021-11-16 03:20:28"
+#>       "wasGeneratedAtTime": "2021-11-16 03:22:40"
 #>     },
 #>     {
 #>       "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
@@ -354,7 +353,7 @@ writeLines(readLines(p))
 #>       "description": "R code",
 #>       "format": "application/R",
 #>       "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>       "title": "file2d7e67442a90b0.R"
+#>       "title": "file2d7ff941cfa77c.R"
 #>     },
 #>     {
 #>       "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
@@ -362,39 +361,17 @@ writeLines(readLines(p))
 #>       "description": "output data",
 #>       "format": "text/csv",
 #>       "identifier": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "title": "file2d7e6718774b2b.csv",
+#>       "title": "file2d7ff954a03b4.csv",
 #>       "byteSize": 65,
 #>       "wasDerivedFrom": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "wasGeneratedAtTime": "2021-11-16 03:20:28",
+#>       "wasGeneratedAtTime": "2021-11-16 03:22:40",
 #>       "wasGeneratedBy": [
-#>         "urn:uuid:1554093e-ddc1-465f-a4b5-b907aa868e5b",
-#>         "urn:uuid:93957b02-5c43-4c3f-8622-a1b27e876606"
+#>         "urn:uuid:930380bb-9a06-43b3-8bfc-71e4bc72e10a",
+#>         "urn:uuid:8e05455f-7942-4659-9aed-551a1cf6f42b"
 #>       ]
 #>     },
 #>     {
-#>       "id": "urn:uuid:1554093e-ddc1-465f-a4b5-b907aa868e5b",
-#>       "type": "Activity",
-#>       "description": "Running R script",
-#>       "endedAtTime": "2021-11-16 03:20:28",
-#>       "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "used": [
-#>         "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>         "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
-#>       ]
-#>     },
-#>     {
-#>       "id": "urn:uuid:93957b02-5c43-4c3f-8622-a1b27e876606",
-#>       "type": "Activity",
-#>       "description": "Running R script",
-#>       "endedAtTime": "2021-11-16 03:20:28",
-#>       "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "used": [
-#>         "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>         "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
-#>       ]
-#>     },
-#>     {
-#>       "id": "urn:uuid:d623934f-2d81-4419-94bf-0457998a3811",
+#>       "id": "urn:uuid:20cbec14-085a-4e32-8b3c-7c6dc30d57df",
 #>       "type": "Dataset",
 #>       "issued": "2021-11-16",
 #>       "license": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
@@ -403,6 +380,28 @@ writeLines(readLines(p))
 #>         "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
 #>         "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
 #>         "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51"
+#>       ]
+#>     },
+#>     {
+#>       "id": "urn:uuid:8e05455f-7942-4659-9aed-551a1cf6f42b",
+#>       "type": "Activity",
+#>       "description": "Running R script",
+#>       "endedAtTime": "2021-11-16 03:22:40",
+#>       "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+#>       "used": [
+#>         "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+#>         "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
+#>       ]
+#>     },
+#>     {
+#>       "id": "urn:uuid:930380bb-9a06-43b3-8bfc-71e4bc72e10a",
+#>       "type": "Activity",
+#>       "description": "Running R script",
+#>       "endedAtTime": "2021-11-16 03:22:40",
+#>       "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+#>       "used": [
+#>         "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+#>         "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
 #>       ]
 #>     }
 #>   ]
@@ -429,7 +428,7 @@ writeLines(readLines(p))
 #> {
 #>   "@context": "http://schema.org/",
 #>   "type": "Dataset",
-#>   "id": "urn:uuid:f50a3d0e-a38c-42c8-b84c-e897e5140421",
+#>   "id": "urn:uuid:e3b1ce5c-377c-4d40-8d69-3ef2c9c39e34",
 #>   "name": "An example dataset",
 #>   "creator": {
 #>     "givenName": "John",
@@ -443,7 +442,7 @@ writeLines(readLines(p))
 #>         "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
 #>         "type": "DataDownload",
 #>         "identifier": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>         "name": "file2d7e6738b8e460.csv",
+#>         "name": "file2d7ff97f803a4.csv",
 #>         "description": "Input data",
 #>         "encodingFormat": "text/csv",
 #>         "contentSize": 1783,
@@ -455,7 +454,7 @@ writeLines(readLines(p))
 #>         "type": "SoftwareSourceCode",
 #>         "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
 #>         "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>         "name": "file2d7e67442a90b0.R",
+#>         "name": "file2d7ff941cfa77c.R",
 #>         "description": "R code",
 #>         "encodingFormat": "application/R"
 #>       }
@@ -465,7 +464,7 @@ writeLines(readLines(p))
 #>         "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
 #>         "type": "DataDownload",
 #>         "identifier": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>         "name": "file2d7e6718774b2b.csv",
+#>         "name": "file2d7ff954a03b4.csv",
 #>         "description": "output data",
 #>         "encodingFormat": "text/csv",
 #>         "contentSize": 65,
@@ -491,7 +490,7 @@ terms, but have based the mapping around translating `prov:Activity` to
 to_sdo(p)
 #> {
 #>   "@context": "http://schema.org/",
-#>   "id": "urn:uuid:f50a3d0e-a38c-42c8-b84c-e897e5140421",
+#>   "id": "urn:uuid:e3b1ce5c-377c-4d40-8d69-3ef2c9c39e34",
 #>   "type": "Dataset",
 #>   "creator": {
 #>     "familyName": "Public",
@@ -506,7 +505,7 @@ to_sdo(p)
 #>       "description": "Input data",
 #>       "encodingFormat": "text/csv",
 #>       "identifier": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "name": "file2d7e6738b8e460.csv"
+#>       "name": "file2d7ff97f803a4.csv"
 #>     },
 #>     {
 #>       "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
@@ -514,7 +513,7 @@ to_sdo(p)
 #>       "description": "R code",
 #>       "encodingFormat": "application/R",
 #>       "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>       "name": "file2d7e67442a90b0.R"
+#>       "name": "file2d7ff941cfa77c.R"
 #>     },
 #>     {
 #>       "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
@@ -524,7 +523,7 @@ to_sdo(p)
 #>       "description": "output data",
 #>       "encodingFormat": "text/csv",
 #>       "identifier": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "name": "file2d7e6718774b2b.csv"
+#>       "name": "file2d7ff954a03b4.csv"
 #>     }
 #>   ],
 #>   "issued": "2021-11-16",

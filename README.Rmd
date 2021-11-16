@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # prov
 
 <!-- badges: start -->
-[![R build status](https://github.com/cboettig/prov/workflows/R-CMD-check/badge.svg)](https://github.com/cboettig/prov/actions)
+[![R-CMD-check](https://github.com/cboettig/prov/workflows/R-CMD-check/badge.svg)](https://github.com/cboettig/prov/actions)
 <!-- badges: end -->
 
 
