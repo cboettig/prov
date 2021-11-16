@@ -15,11 +15,16 @@
 #' @param provdb path to output JSON file, default "prov.json"
 #' @param append Should we append to existing json or overwrite it?
 #' @param schema Use schema.org or DCAT2 schema? See details.
+#' @param ... additional named elements passed to Dataset
 #' @details 
 #' 
 #' If creator, title, and description are all empty, will serialize
 #' only a graph of distribution (data download) elements, not a 
-#' Dataset.
+#' Dataset. 
+#' 
+#' Additional elements passed through `...` must be explicitly namespaced,
+#' e.g. `dcat:version`, when using DCAT2 schema. When using schema.org,
+#' elements must be in schema.org namespace.    
 #' 
 #' Provenance can be expressed in (purely) schema.org or as DCAT2 
 #' (includes terms from DCTERMS, PROV, DCAT2, CITO ontologies). 
@@ -64,7 +69,8 @@ write_prov <-  function(
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
   provdb = "prov.json",
   append = TRUE,
-  schema = c("http://www.w3.org/ns/dcat", "http://schema.org")
+  schema = c("http://www.w3.org/ns/dcat", "http://schema.org"),
+  ...
 ){
   
   prov_obj <- 
@@ -77,7 +83,8 @@ write_prov <-  function(
        description = description,
        issued = issued,
        license = license,
-       schema = schema)
+       schema = schema, 
+       ...)
   
   write_jsonld(prov_obj, provdb, append, schema = schema)
   
@@ -97,11 +104,11 @@ prov <-  function(
   description = NULL,
   issued = as.character(Sys.Date()),
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
-  schema = c("http://www.w3.org/ns/dcat", "http://schema.org")
+  schema = c("http://www.w3.org/ns/dcat", "http://schema.org"),
+  ...
   ){
   
   schema <- match.arg(schema)
-
   files <- 
     switch(schema, 
            "http://www.w3.org/ns/dcat" = 
@@ -127,14 +134,16 @@ prov <-  function(
                         title = title,
                         description = description,
                         issued = issued,
-                        license = license),
+                        license = license,
+                        ...),
          "http://schema.org" = 
            schema_dataset(distribution = files,
                creator = creator,
                title = title,
                description = description,
                issued = issued,
-               license = license)
+               license = license,
+               ...)
   )
   
 }

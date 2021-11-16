@@ -14,7 +14,8 @@ prov(
   description = NULL,
   issued = as.character(Sys.Date()),
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
-  schema = c("http://www.w3.org/ns/dcat", "http://schema.org")
+  schema = c("http://www.w3.org/ns/dcat", "http://schema.org"),
+  ...
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ prov(
 \item{license}{URL to a copyright license}
 
 \item{schema}{Use schema.org or DCAT2 schema? See details.}
+
+\item{...}{additional named elements passed to Dataset}
 }
 \description{
 generate provenance information

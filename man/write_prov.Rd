@@ -16,7 +16,8 @@ write_prov(
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
   provdb = "prov.json",
   append = TRUE,
-  schema = c("http://www.w3.org/ns/dcat", "http://schema.org")
+  schema = c("http://www.w3.org/ns/dcat", "http://schema.org"),
+  ...
 )
 }
 \arguments{
@@ -43,6 +44,8 @@ write_prov(
 \item{append}{Should we append to existing json or overwrite it?}
 
 \item{schema}{Use schema.org or DCAT2 schema? See details.}
+
+\item{...}{additional named elements passed to Dataset}
 }
 \description{
 Write a provenance trace into JSON-LD
