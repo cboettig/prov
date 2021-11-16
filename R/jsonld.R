@@ -1,24 +1,37 @@
 
-context_file <- function(){
+context_file <- function(schema = c("http://www.w3.org/ns/dcat",
+                                    "http://schema.org")){
+  
+  schema <- match.arg(schema)
+  
   #paste0("https://raw.githubusercontent.com/",
   #       "cboettig/prov/master/inst/context/dcat_context.json")
-  system.file("context", "dcat_context.json",
-                       package="prov", mustWork = TRUE)
+  
+  switch(schema, 
+         "http://www.w3.org/ns/dcat" = system.file("context", 
+                                                   "dcat_context.json",
+                                                   package="prov", 
+                                                   mustWork = TRUE),
+         "http://schema.org" = system.file("context", 
+                                           "schema_context.json",
+                                           package="prov", 
+                                           mustWork = TRUE)
+          )
 }
 
-#' @importFrom jsonlite read_json write_json
-context <- function(){
-  jsonlite::read_json(context_file())
-}
 
+context <- function(schema){
+  read_json(context_file(schema))
+}
 
 write_jsonld <- function(obj,
                          file = "prov.json",
                          append = TRUE,
-                         context = context_file() 
+                         schema = c("http://www.w3.org/ns/dcat",
+                                    "http://schema.org") 
 ){
-  
-  context <- jsonlite::read_json(context)
+  schema <- match.arg(schema)
+  context <- context(schema)
   out <- c(context, obj)
   
   if(file.exists(file) && append){
@@ -42,16 +55,14 @@ write_jsonld <- function(obj,
 
 
 #' @importFrom jsonld jsonld_flatten jsonld_compact
-merge_jsonld <- function(x,y, 
-  context = context_file()){
+merge_jsonld <- function(x,y, context = context_file()){
   flat_x <- jsonld::jsonld_flatten(x) 
   flat_y <- jsonld::jsonld_flatten(y)
   json <- jsonld::jsonld_flatten(merge_json(flat_x, flat_y))
   jsonld::jsonld_compact(json, context)
 }
 
-append_ld <- function(obj, json, 
-  context = context_file()){
+append_ld <- function(obj, json, context = context_file()){
   flat <- jsonld::jsonld_flatten(json) 
   flat_list <- jsonlite::fromJSON(flat, simplifyVector = FALSE)
   combined <- jsonlite::toJSON(c(flat_list, list(obj)), auto_unbox = TRUE)

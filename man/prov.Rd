@@ -13,7 +13,8 @@ prov(
   title = NULL,
   description = NULL,
   issued = as.character(Sys.Date()),
-  license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode"
+  license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+  schema = c("http://www.w3.org/ns/dcat", "http://schema.org")
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ prov(
 \item{issued}{publication date, as Date or character object}
 
 \item{license}{URL to a copyright license}
+
+\item{schema}{Use schema.org or DCAT2 schema? See details.}
 }
 \description{
 generate provenance information

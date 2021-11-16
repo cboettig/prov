@@ -41,7 +41,7 @@ compressed_extension <- function(file){
   compressFormat[compressed] <- gsub("gz", "gzip", compressed_ext)
   
   file[compressed] <- tools::file_path_sans_ext(file[compressed])
-  format <- mime::guess_type(file)
+  format <- mime::guess_type(file, mime_extra = mime_extra)
 
   list(format = format, compressFormat = compressFormat)
 }
@@ -60,3 +60,6 @@ rdf_table <- function(doc){
              col.names = c("subject", "predicate", "object", "graph"))
 
 }
+
+
+mime_extra = c("parquet" = "application/vnd.apache.parquet")
