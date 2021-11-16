@@ -38,7 +38,6 @@ write_prov_tsv(
 \description{
 Write provenance metadata to a table. While this format is less expressive
 than JSON-LD, it is also more efficient, particularly when data is appended.
-At this time, only documents dcat:Distribution types. In principle,
-we would want to also generate dcat:Activity metadata table, reflecting
-the relationship between data_in, data_out, and code
+At this time, only documents dcat:Distribution (schema:DataDownload) types.
+Column names are taken from DCAT but no official namespace is set.
 }

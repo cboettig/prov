@@ -2,7 +2,7 @@
 % Please edit documentation in R/prov.R
 \name{write_prov}
 \alias{write_prov}
-\title{Write a provenance trace into JSON-LD using DCAT2 & PROV vocabularies}
+\title{Write a provenance trace into JSON-LD}
 \usage{
 write_prov(
   data_in = NULL,
@@ -15,7 +15,8 @@ write_prov(
   issued = as.character(Sys.Date()),
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
   provdb = "prov.json",
-  append = TRUE
+  append = TRUE,
+  schema = c("http://www.w3.org/ns/dcat", "http://schema.org")
 )
 }
 \arguments{
@@ -40,9 +41,22 @@ write_prov(
 \item{provdb}{path to output JSON file, default "prov.json"}
 
 \item{append}{Should we append to existing json or overwrite it?}
+
+\item{schema}{Use schema.org or DCAT2 schema? See details.}
 }
 \description{
-Write a provenance trace into JSON-LD using DCAT2 & PROV vocabularies
+Write a provenance trace into JSON-LD
+}
+\details{
+If creator, title, and description are all empty, will serialize
+only a graph of distribution (data download) elements, not a
+Dataset.
+
+Provenance can be expressed in (purely) schema.org or as DCAT2
+(includes terms from DCTERMS, PROV, DCAT2, CITO ontologies).
+The latter is more expressive in terms of provenance.
+Also note DCAT but not schema can explicitly encode compression and
+metadata file relationships.
 }
 \examples{
  
