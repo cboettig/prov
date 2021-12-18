@@ -24,7 +24,8 @@ Imports:
     jsonlite,
     mime,
     uuid,
-    vroom
+    vroom,
+    fs
 RoxygenNote: 7.1.2
 Suggests: 
     knitr,

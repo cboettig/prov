@@ -18,7 +18,8 @@ write_prov_tsv <- function(
   theme = NA_character_,
   keyword = NA_character_,
   provdb = "prov.tsv",
-  append = file.exists(provdb)){
+  append = fs::file_exists(provdb)
+  ){
   
     meta_id <- hash_id(meta)
     df <- rbind(

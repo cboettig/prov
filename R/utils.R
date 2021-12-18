@@ -19,7 +19,7 @@ multihash_ids <- function(ids){
 
 is_uri <- function(x){
   if(is.null(x)) return(FALSE)  
-  if(file.exists(x)) return(FALSE)
+  if(fs::file_exists(x)) return(FALSE)
   if(grepl("^\\w+:.*", x)) return(TRUE)
   
 }

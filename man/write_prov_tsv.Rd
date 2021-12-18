@@ -13,7 +13,7 @@ write_prov_tsv(
   theme = NA_character_,
   keyword = NA_character_,
   provdb = "prov.tsv",
-  append = file.exists(provdb)
+  append = fs::file_exists(provdb)
 )
 }
 \arguments{

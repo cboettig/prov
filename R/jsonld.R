@@ -34,7 +34,7 @@ write_jsonld <- function(obj,
   context <- context(schema)
   out <- c(context, obj)
   
-  if(file.exists(file) && append){
+  if(fs::file_exists(file) && append){
     tmp <- tempfile(fileext=".json")
     jsonlite::write_json(out, tmp, auto_unbox=TRUE, pretty = TRUE)
     out <- merge_jsonld(tmp, file, context = context_file(schema))
