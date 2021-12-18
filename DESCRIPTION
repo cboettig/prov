@@ -25,7 +25,9 @@ Imports:
     mime,
     uuid,
     vroom,
-    fs
+    fs,
+    lubridate,
+    purrr
 RoxygenNote: 7.1.2
 Suggests: 
     knitr,
