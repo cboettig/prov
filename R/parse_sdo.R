@@ -19,6 +19,7 @@ parse_sdo <- function(json){
     datadownload <- graph[type == "DataDownload"]
     dd <- parseDataDownload(datadownload)
   }
+  #dplyr::bind_rows(ds,dd)
   rbind(ds,dd)
 }
 
@@ -52,13 +53,13 @@ parseDataDownload <- function(datadownload){
   id <- lookup(datadownload, "id")
   name <- lookup(datadownload, "name")
   description <- lookup(datadownload, "description")
-  date <-  as.Date(lookup(datadownload, "dateCreated"))
+  date <- as.Date(lookup(datadownload, "dateCreated"))
   df <- data.frame(name, description, id, date)
   df <- df[df$description == "output data",]
-  df$basename = tools::file_path_sans_ext(name, TRUE)
-  df$compression = tools::file_ext(name)
-  df$year = lubridate::year(date)
-  
+  df$basename <- tools::file_path_sans_ext(df$name, TRUE)
+  df$compression <- tools::file_ext(df$name)
+  df$year <- lubridate::year(df$date)
+  df$version <- NA
   df
 }
 
