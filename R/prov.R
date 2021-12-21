@@ -154,6 +154,7 @@ prov <-  function(
                license = license,
                ...)
   )
+  ## in schema.org, we need to list actions separately
   if(length(actions) > 0){
     return(list(
       "@graph" = list(out, actions)
