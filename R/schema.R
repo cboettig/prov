@@ -107,8 +107,7 @@ schema_activity <- function(
 
 schema_provenance <- function(data_in = NULL,
                               code = NULL, 
-                              data_out = NULL,
-                              meta = NULL){
+                              data_out = NULL){
   
   
   code_obj <- lapply(unname(code), schema_script, 
@@ -134,13 +133,10 @@ schema_provenance <- function(data_in = NULL,
   }
   
   out_obj <- compact(lapply(unname(data_out), schema_data, 
-                            description = "output data",
-                            wasDerivedFrom = in_obj_ids,
-                            wasGeneratedAtTime = time,
-                            wasGeneratedBy = list(activity)))
+                            description = "output data"))
   
   
-  compact(c(in_obj, code_obj, out_obj))
+  compact(c(in_obj, code_obj, out_obj, list(activity)))
 }      
 
 
