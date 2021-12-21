@@ -127,7 +127,16 @@ prov <-  function(
   if(all(is.null(c(creator, title, description))))
     return(list("@graph" = files))
   
-  switch(schema, 
+  actions <- list()
+  if(grepl("schema.org", schema)){
+   ## If we're writing a dataset, action type should not be included
+   ## in the distribution element! 
+   type <- lookup(files, "type")
+   actions <- files[type == "Action"]
+   files <- files[type != "Action"]
+  }
+  
+  out <- switch(schema, 
          "http://www.w3.org/ns/dcat" = 
            dcat_dataset(distribution = files,
                         creator = creator,
@@ -145,5 +154,11 @@ prov <-  function(
                license = license,
                ...)
   )
-  
+  if(length(actions) > 0){
+    return(list(
+      "@graph" = list(out, actions)
+          ))
+  }
+  out
+              
 }
