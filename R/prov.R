@@ -24,7 +24,7 @@
 #' 
 #' Additional elements passed through `...` must be explicitly namespaced,
 #' e.g. `dcat:version`, when using DCAT2 schema. When using schema.org,
-#' elements must be in schema.org namespace.  p  
+#' elements must be in schema.org namespace.
 #' 
 #' Provenance can be expressed in (purely) schema.org or as DCAT2 
 #' (includes terms from DCTERMS, PROV, DCAT2, CITO ontologies). 

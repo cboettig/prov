@@ -60,8 +60,12 @@ merge_jsonld <- function(x,y, context = context_file()){
   flat_y <- jsonld::jsonld_flatten(y)
   json <- jsonld::jsonld_flatten(merge_json(flat_x, flat_y))
   compact <- jsonld::jsonld_compact(json, context)
+  
+  ## Distribution/DataDownload should be nested in Dataset
+  ## Action/Activity can float
   if(grepl('"Dataset"', compact)){
-    frame <- c(jsonlite::read_json(context), list("@type" = "Dataset"))
+    frame <- c(jsonlite::read_json(context), 
+               list("@type" = c("Dataset", "Action", "Activity")))
     out <- jsonld::jsonld_frame(compact, jsonlite::toJSON(frame))
   } else {
     out <- compact
