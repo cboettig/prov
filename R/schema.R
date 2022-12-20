@@ -17,7 +17,7 @@ schema_dataset <- function(
     name = title,
     description = description,
     creator = creator,
-    issued = issued,
+    dateCreated = issued,
     license = license,
     distribution = distribution,
     ...
@@ -27,6 +27,7 @@ schema_dataset <- function(
 
 schema_distribution <- function(file, 
                               id = hash_id(file),
+                              identifier = hash_id(file, "md5"),
                               description = NULL, 
                               meta_id = NULL){
   
@@ -37,7 +38,7 @@ schema_distribution <- function(file,
   compact(list(
     id = id,
     type = "DataDownload",
-    identifier = id, 
+    identifier = identifier, 
     name = basename(file),
     description = description,
     encodingFormat  = ex$format,
@@ -56,7 +57,7 @@ schema_script <- function(code,
   
   code_id <- hash_id(code)
   compact(list(
-    type = c("SoftwareSourceCode"),
+    type = c("DataDownload", "SoftwareSourceCode"),
     id = code_id,
     identifier = code_id,
     name = basename(code),
