@@ -15,6 +15,7 @@
 #' @param provdb path to output JSON file, default "prov.json"
 #' @param append Should we append to existing json or overwrite it?
 #' @param schema Use schema.org or DCAT2 schema? See details.
+#' @param embed_actions should we incldue schema:Action to create?
 #' @param ... additional named elements passed to Dataset
 #' @details 
 #' 
@@ -29,7 +30,7 @@
 #' Provenance can be expressed in (purely) schema.org or as DCAT2 
 #' (includes terms from DCTERMS, PROV, DCAT2, CITO ontologies). 
 #' The latter is more expressive in terms of provenance.
-#' Also note DCAT but not schema can explicitly encode compression and
+#' Also note DCAT2 but not schema.org can explicitly encode compression and
 #' metadata file relationships.
 #' @export
 #'
@@ -68,8 +69,8 @@ write_prov <-  function(
   issued = as.character(Sys.Date()),
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
   provdb = "prov.json",
-  append = TRUE,
-  schema = c("http://www.w3.org/ns/dcat", "http://schema.org"),
+  append = is.null(code),
+  schema = c("http://schema.org", "http://www.w3.org/ns/dcat"),
   ...
 ){
   
@@ -104,7 +105,8 @@ prov <-  function(
   description = NULL,
   issued = as.character(Sys.Date()),
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
-  schema = c("http://www.w3.org/ns/dcat", "http://schema.org"),
+  schema = c("http://schema.org", "http://www.w3.org/ns/dcat"),
+  embed_actions = FALSE,
   ...
   ){
   
@@ -128,14 +130,17 @@ prov <-  function(
     return(list("@graph" = files))
   
   actions <- list()
-  if(grepl("schema.org", schema)){
-   ## If we're writing a dataset, action type should not be included
-   ## in the distribution element! 
-   type <- lookup(files, "type")
-   actions <- files[type == "Action"]
-   files <- files[type != "Action"]
-  }
   
+  if(embed_actions) {
+    if(grepl("schema.org", schema)){
+     ## If we're writing a dataset, action type should not be included
+     ## in the distribution element! 
+     type <- lookup(files, "type")
+     actions <- files[type == "Action"]
+     files <- files[type != "Action"]
+    }
+  
+  }
   out <- switch(schema, 
          "http://www.w3.org/ns/dcat" = 
            dcat_dataset(distribution = files,

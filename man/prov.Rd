@@ -15,6 +15,7 @@ prov(
   issued = as.character(Sys.Date()),
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
   schema = c("http://www.w3.org/ns/dcat", "http://schema.org"),
+  embed_actions = FALSE,
   ...
 )
 }
@@ -38,6 +39,8 @@ prov(
 \item{license}{URL to a copyright license}
 
 \item{schema}{Use schema.org or DCAT2 schema? See details.}
+
+\item{embed_actions}{should we incldue schema:Action to create?}
 
 \item{...}{additional named elements passed to Dataset}
 }

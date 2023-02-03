@@ -25,15 +25,36 @@ schema_dataset <- function(
   
 }
 
+is_url <- function(x) {
+  grepl("^http[s]://", x)
+}
+
 schema_distribution <- function(file, 
-                              id = hash_id(file),
-                              identifier = hash_id(file, "md5"),
+                              id = NULL,
+                              identifier = NULL,
                               description = NULL, 
                               meta_id = NULL){
   
+  if(is.null(identifier))
+    identifier = hash_id(file, algo= c("sha256", "md5"))
+  
+  if(is.null(id))
+    id = identifier[[1]]
+  
   if(is.null(file)) return(NULL)
-  if(is_uri(file)) return(list(id = file))
   ex <- compressed_extension(file)
+  
+  contentUrl <- NULL
+  if(is_url(file)) contentUrl <- file
+  
+  contentSize <- NULL
+  
+  if(file.exists(file))
+    contentSize <- file.size(file)
+  else if(is_url(file)) {
+    contentSize <- httr::HEAD(file)$headers$`content-length`
+  }
+  
   
   compact(list(
     id = id,
@@ -42,7 +63,8 @@ schema_distribution <- function(file,
     name = basename(file),
     description = description,
     encodingFormat  = ex$format,
-    contentSize = file.size(file)
+    contentSize = as.integer(contentSize),
+    contentUrl = contentUrl
   ))
 }
 
@@ -69,17 +91,24 @@ schema_data <- function(file,
                       id = hash_id(file),
                       description = NULL, 
                       meta_id = NULL,
-                      wasGeneratedAtTime = file.mtime(file),
+                      wasGeneratedAtTime = NULL,
                       wasDerivedFrom = NULL,
                       wasGeneratedBy = NULL,
                       wasRevisionOf = NULL){
   
   if(is.null(file)) return(NULL)
-  if(is_uri(file)) return(list(id = file))
+  if(grepl("^hash://", file)) return(list(id = file))
+  
+  
+  if(is.null(wasGeneratedAtTime)) {
+    if(file.exists(file))
+      wasGeneratedAtTime <-file.mtime(file)
+  }
+  
   compact(
     c(schema_distribution(file, 
-                        id = id,
-                        description = description),
+                          id = id,
+                          description = description),
       dateCreated = as.character(as.Date(wasGeneratedAtTime))
     ))
 }
