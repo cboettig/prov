@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/cboettig/prov/workflows/R-CMD-check/badge.svg)](https://github.com/cboettig/prov/actions)
+[![R-CMD-check](https://github.com/cboettig/prov/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/cboettig/prov/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `prov` lets you easily generate provenance records for common workflows
@@ -79,135 +79,50 @@ Let’s take a look at the results:
 ``` r
 writeLines(readLines(p))
 #> {
-#>   "@context": {
-#>     "dcat": "http://www.w3.org/ns/dcat#",
-#>     "prov": "http://www.w3.org/ns/prov#",
-#>     "dct": "http://purl.org/dc/terms/",
-#>     "sdo": "http://schema.org/",
-#>     "cito": "http://purl.org/spar/cito/",
-#>     "id": "@id",
-#>     "type": "@type",
-#>     "identifier": {
-#>       "@id": "dct:identifier",
-#>       "@type": "@id"
-#>     },
-#>     "title": "dct:title",
-#>     "description": "dct:description",
-#>     "issued": "dct:issued",
-#>     "format": "dct:format",
-#>     "mediaType": "dcat:mediaType",
-#>     "keyword": "dcat:keyword",
-#>     "theme": "dcat:theme",
-#>     "modified": "dcat:modified",
-#>     "downloadURL": "dcat:downloadURL",
-#>     "publisher": {
-#>       "@id": "dcat:publisher",
-#>       "@type": "@id"
-#>     },
-#>     "contactPoint": {
-#>       "@id": "dcat:contactPoint",
-#>       "@type": "@id"
-#>     },
-#>     "spatial": {
-#>       "@id": "dct:spatial",
-#>       "@type": "@id"
-#>     },
-#>     "temporal": {
-#>       "@id": "dct:temporal",
-#>       "@type": "@id"
-#>     },
-#>     "license": {
-#>       "@id": "dct:license",
-#>       "@type": "@id"
-#>     },
-#>     "creator": {
-#>       "@id": "dcat:creator",
-#>       "@type": "@id"
-#>     },
-#>     "compressFormat": "dcat:compressFormat",
-#>     "byteSize": "dcat:byteSize",
-#>     "wasGeneratedAtTime": "prov:wasGeneratedAtTime",
-#>     "startedAtTime": "prov:startedAtTime",
-#>     "endedAtTime": "prov:endedAtTime",
-#>     "wasDerivedFrom": {
-#>       "@id": "prov:wasDerivedFrom",
-#>       "@type": "@id"
-#>     },
-#>     "wasGeneratedBy": {
-#>       "@id": "prov:wasGeneratedBy",
-#>       "@type": "@id"
-#>     },
-#>     "generated": {
-#>       "@id": "prov:generated",
-#>       "@type": "@id"
-#>     },
-#>     "used": {
-#>       "@id": "prov:used",
-#>       "@type": "@id"
-#>     },
-#>     "wasRevisionOf": {
-#>       "@id": "prov:wasRevisionOf",
-#>       "@type": "@id"
-#>     },
-#>     "isDocumentedBy": {
-#>       "@id": "cito:isDocumentedBy",
-#>       "@type": "@id"
-#>     },
-#>     "distribution": {
-#>       "@id": "dcat:distribution",
-#>       "@type": "@id"
-#>     },
-#>     "Dataset": "dcat:Dataset",
-#>     "Activity": "prov:Activity",
-#>     "Distribution": "dcat:Distribution",
-#>     "SoftwareSourceCode": "sdo:SoftwareSourceCode"
-#>   },
+#>   "@context": "http://schema.org/",
 #>   "@graph": [
-#>     [
-#>       {
-#>         "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>         "type": "Distribution",
-#>         "identifier": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>         "title": "file2d7ff97f803a4.csv",
-#>         "description": "Input data",
-#>         "format": "text/csv",
-#>         "compressFormat": null,
-#>         "byteSize": 1783,
-#>         "wasGeneratedAtTime": "2021-11-16 03:22:40"
-#>       }
-#>     ],
-#>     [
-#>       {
-#>         "type": ["Distribution", "SoftwareSourceCode"],
-#>         "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>         "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>         "title": "file2d7ff941cfa77c.R",
-#>         "description": "R code",
-#>         "format": "application/R"
-#>       }
-#>     ],
-#>     [
-#>       {
-#>         "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>         "type": "Distribution",
-#>         "identifier": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>         "title": "file2d7ff954a03b4.csv",
-#>         "description": "output data",
-#>         "format": "text/csv",
-#>         "compressFormat": null,
-#>         "byteSize": 65,
-#>         "wasGeneratedAtTime": "2021-11-16 03:22:40",
-#>         "wasDerivedFrom": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>         "wasGeneratedBy": {
-#>           "type": "Activity",
-#>           "id": "urn:uuid:0d8f090e-bdfe-41b3-898a-dacaea492344",
-#>           "description": "Running R script",
-#>           "used": ["hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5", "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"],
-#>           "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>           "endedAtTime": "2021-11-16 03:22:40"
-#>         }
-#>       }
-#>     ]
+#>     {
+#>       "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+#>       "type": "DataDownload",
+#>       "identifier": [
+#>         ["hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5"],
+#>         ["hash://md5/6463474bfe6973a81dc7cbc4a71e8dd1"]
+#>       ],
+#>       "name": "file1f931a6c548143.csv",
+#>       "description": "Input data",
+#>       "encodingFormat": "text/csv",
+#>       "contentSize": 1783,
+#>       "dateCreated": "2023-02-10"
+#>     },
+#>     {
+#>       "type": ["DataDownload", "SoftwareSourceCode"],
+#>       "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
+#>       "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
+#>       "name": "file1f931a6840b2cf.R",
+#>       "description": "R code",
+#>       "encodingFormat": "application/R"
+#>     },
+#>     {
+#>       "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+#>       "type": "DataDownload",
+#>       "identifier": [
+#>         ["hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51"],
+#>         ["hash://md5/08cbbf8dd1ac01cb2d2c5c708055de33"]
+#>       ],
+#>       "name": "file1f931a744df9e.csv",
+#>       "description": "output data",
+#>       "encodingFormat": "text/csv",
+#>       "contentSize": 65,
+#>       "dateCreated": "2023-02-10"
+#>     },
+#>     {
+#>       "type": "Action",
+#>       "id": "urn:uuid:3518cf5a-30e6-40eb-9cd8-d390217ae9d9",
+#>       "description": "Running R script",
+#>       "object": ["hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5", "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"],
+#>       "result": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+#>       "endTime": "2023-02-10 22:43:49"
+#>     }
 #>   ]
 #> }
 ```
@@ -249,163 +164,211 @@ of individual `distribution` objects.
 
 ``` r
 writeLines(readLines(p))
-#> {
-#>   "@context": {
-#>     "dcat": "http://www.w3.org/ns/dcat#",
-#>     "prov": "http://www.w3.org/ns/prov#",
-#>     "dct": "http://purl.org/dc/terms/",
-#>     "sdo": "http://schema.org/",
-#>     "cito": "http://purl.org/spar/cito/",
-#>     "id": "@id",
-#>     "type": "@type",
-#>     "identifier": {
-#>       "@id": "dct:identifier",
-#>       "@type": "@id"
-#>     },
-#>     "title": "dct:title",
-#>     "description": "dct:description",
-#>     "issued": "dct:issued",
-#>     "format": "dct:format",
-#>     "mediaType": "dcat:mediaType",
-#>     "keyword": "dcat:keyword",
-#>     "theme": "dcat:theme",
-#>     "modified": "dcat:modified",
-#>     "downloadURL": "dcat:downloadURL",
-#>     "publisher": {
-#>       "@id": "dcat:publisher",
-#>       "@type": "@id"
-#>     },
-#>     "contactPoint": {
-#>       "@id": "dcat:contactPoint",
-#>       "@type": "@id"
-#>     },
-#>     "spatial": {
-#>       "@id": "dct:spatial",
-#>       "@type": "@id"
-#>     },
-#>     "temporal": {
-#>       "@id": "dct:temporal",
-#>       "@type": "@id"
-#>     },
-#>     "license": {
-#>       "@id": "dct:license",
-#>       "@type": "@id"
-#>     },
-#>     "creator": {
-#>       "@id": "dcat:creator",
-#>       "@type": "@id"
-#>     },
-#>     "compressFormat": "dcat:compressFormat",
-#>     "byteSize": "dcat:byteSize",
-#>     "wasGeneratedAtTime": "prov:wasGeneratedAtTime",
-#>     "startedAtTime": "prov:startedAtTime",
-#>     "endedAtTime": "prov:endedAtTime",
-#>     "wasDerivedFrom": {
-#>       "@id": "prov:wasDerivedFrom",
-#>       "@type": "@id"
-#>     },
-#>     "wasGeneratedBy": {
-#>       "@id": "prov:wasGeneratedBy",
-#>       "@type": "@id"
-#>     },
-#>     "generated": {
-#>       "@id": "prov:generated",
-#>       "@type": "@id"
-#>     },
-#>     "used": {
-#>       "@id": "prov:used",
-#>       "@type": "@id"
-#>     },
-#>     "wasRevisionOf": {
-#>       "@id": "prov:wasRevisionOf",
-#>       "@type": "@id"
-#>     },
-#>     "isDocumentedBy": {
-#>       "@id": "cito:isDocumentedBy",
-#>       "@type": "@id"
-#>     },
-#>     "distribution": {
-#>       "@id": "dcat:distribution",
-#>       "@type": "@id"
-#>     },
-#>     "Dataset": "dcat:Dataset",
-#>     "Activity": "prov:Activity",
-#>     "Distribution": "dcat:Distribution",
-#>     "SoftwareSourceCode": "sdo:SoftwareSourceCode"
+#> [
+#>   {
+#>     "@id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+#>     "http://schema.org/contentSize": [
+#>       {
+#>         "@value": "1783",
+#>         "@type": "http://www.w3.org/2001/XMLSchema#integer"
+#>       }
+#>     ],
+#>     "http://schema.org/dateCreated": [
+#>       {
+#>         "@value": "2023-02-10",
+#>         "@type": "http://schema.org/Date"
+#>       }
+#>     ],
+#>     "http://schema.org/description": [
+#>       {
+#>         "@value": "Input data"
+#>       }
+#>     ],
+#>     "http://schema.org/encodingFormat": [
+#>       {
+#>         "@value": "text/csv"
+#>       }
+#>     ],
+#>     "http://schema.org/identifier": [
+#>       {
+#>         "@value": "hash://md5/6463474bfe6973a81dc7cbc4a71e8dd1"
+#>       },
+#>       {
+#>         "@value": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5"
+#>       }
+#>     ],
+#>     "http://schema.org/name": [
+#>       {
+#>         "@value": "file1f931a6c548143.csv"
+#>       }
+#>     ],
+#>     "@type": [
+#>       "http://schema.org/DataDownload"
+#>     ]
 #>   },
-#>   "@graph": [
-#>     {
-#>       "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "type": "Distribution",
-#>       "description": "Input data",
-#>       "format": "text/csv",
-#>       "identifier": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "title": "file2d7ff97f803a4.csv",
-#>       "byteSize": 1783,
-#>       "wasGeneratedAtTime": "2021-11-16 03:22:40"
-#>     },
-#>     {
-#>       "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>       "type": [
-#>         "Distribution",
-#>         "SoftwareSourceCode"
-#>       ],
-#>       "description": "R code",
-#>       "format": "application/R",
-#>       "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>       "title": "file2d7ff941cfa77c.R"
-#>     },
-#>     {
-#>       "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "type": "Distribution",
-#>       "description": "output data",
-#>       "format": "text/csv",
-#>       "identifier": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "title": "file2d7ff954a03b4.csv",
-#>       "byteSize": 65,
-#>       "wasDerivedFrom": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "wasGeneratedAtTime": "2021-11-16 03:22:40",
-#>       "wasGeneratedBy": [
-#>         "urn:uuid:930380bb-9a06-43b3-8bfc-71e4bc72e10a",
-#>         "urn:uuid:8e05455f-7942-4659-9aed-551a1cf6f42b"
-#>       ]
-#>     },
-#>     {
-#>       "id": "urn:uuid:20cbec14-085a-4e32-8b3c-7c6dc30d57df",
-#>       "type": "Dataset",
-#>       "issued": "2021-11-16",
-#>       "license": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
-#>       "title": "An example dataset",
-#>       "distribution": [
-#>         "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>         "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>         "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51"
-#>       ]
-#>     },
-#>     {
-#>       "id": "urn:uuid:8e05455f-7942-4659-9aed-551a1cf6f42b",
-#>       "type": "Activity",
-#>       "description": "Running R script",
-#>       "endedAtTime": "2021-11-16 03:22:40",
-#>       "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "used": [
-#>         "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>         "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
-#>       ]
-#>     },
-#>     {
-#>       "id": "urn:uuid:930380bb-9a06-43b3-8bfc-71e4bc72e10a",
-#>       "type": "Activity",
-#>       "description": "Running R script",
-#>       "endedAtTime": "2021-11-16 03:22:40",
-#>       "generated": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "used": [
-#>         "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>         "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
-#>       ]
-#>     }
-#>   ]
-#> }
+#>   {
+#>     "@id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
+#>     "http://schema.org/description": [
+#>       {
+#>         "@value": "R code"
+#>       }
+#>     ],
+#>     "http://schema.org/encodingFormat": [
+#>       {
+#>         "@value": "application/R"
+#>       }
+#>     ],
+#>     "http://schema.org/identifier": [
+#>       {
+#>         "@value": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
+#>       }
+#>     ],
+#>     "http://schema.org/name": [
+#>       {
+#>         "@value": "file1f931a6840b2cf.R"
+#>       }
+#>     ],
+#>     "@type": [
+#>       "http://schema.org/DataDownload",
+#>       "http://schema.org/SoftwareSourceCode"
+#>     ]
+#>   },
+#>   {
+#>     "@id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+#>     "http://schema.org/contentSize": [
+#>       {
+#>         "@value": "65",
+#>         "@type": "http://www.w3.org/2001/XMLSchema#integer"
+#>       }
+#>     ],
+#>     "http://schema.org/dateCreated": [
+#>       {
+#>         "@value": "2023-02-10",
+#>         "@type": "http://schema.org/Date"
+#>       }
+#>     ],
+#>     "http://schema.org/description": [
+#>       {
+#>         "@value": "output data"
+#>       }
+#>     ],
+#>     "http://schema.org/encodingFormat": [
+#>       {
+#>         "@value": "text/csv"
+#>       }
+#>     ],
+#>     "http://schema.org/identifier": [
+#>       {
+#>         "@value": "hash://md5/08cbbf8dd1ac01cb2d2c5c708055de33"
+#>       },
+#>       {
+#>         "@value": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51"
+#>       }
+#>     ],
+#>     "http://schema.org/name": [
+#>       {
+#>         "@value": "file1f931a744df9e.csv"
+#>       }
+#>     ],
+#>     "@type": [
+#>       "http://schema.org/DataDownload"
+#>     ]
+#>   },
+#>   {
+#>     "@id": "urn:uuid:61195c48-f67e-4b53-9ed6-b501c663cc9b",
+#>     "http://schema.org/dateCreated": [
+#>       {
+#>         "@value": "2023-02-10",
+#>         "@type": "http://schema.org/Date"
+#>       }
+#>     ],
+#>     "http://schema.org/distribution": [
+#>       {
+#>         "@id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5"
+#>       },
+#>       {
+#>         "@id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
+#>       },
+#>       {
+#>         "@id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51"
+#>       },
+#>       {
+#>         "@id": "urn:uuid:e781eef5-798f-42b3-8cea-c73bd7c636cc"
+#>       }
+#>     ],
+#>     "http://schema.org/license": [
+#>       {
+#>         "@id": "https://creativecommons.org/publicdomain/zero/1.0/legalcode"
+#>       }
+#>     ],
+#>     "http://schema.org/name": [
+#>       {
+#>         "@value": "An example dataset"
+#>       }
+#>     ],
+#>     "@type": [
+#>       "http://schema.org/Dataset"
+#>     ]
+#>   },
+#>   {
+#>     "@id": "urn:uuid:80450a4f-5962-4458-be45-19076eca7deb",
+#>     "http://schema.org/description": [
+#>       {
+#>         "@value": "Running R script"
+#>       }
+#>     ],
+#>     "http://schema.org/endTime": [
+#>       {
+#>         "@value": "2023-02-10 22:43:49"
+#>       }
+#>     ],
+#>     "http://schema.org/object": [
+#>       {
+#>         "@value": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5"
+#>       },
+#>       {
+#>         "@value": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
+#>       }
+#>     ],
+#>     "http://schema.org/result": [
+#>       {
+#>         "@value": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51"
+#>       }
+#>     ],
+#>     "@type": [
+#>       "http://schema.org/Action"
+#>     ]
+#>   },
+#>   {
+#>     "@id": "urn:uuid:e781eef5-798f-42b3-8cea-c73bd7c636cc",
+#>     "http://schema.org/description": [
+#>       {
+#>         "@value": "Running R script"
+#>       }
+#>     ],
+#>     "http://schema.org/endTime": [
+#>       {
+#>         "@value": "2023-02-10 22:43:49"
+#>       }
+#>     ],
+#>     "http://schema.org/object": [
+#>       {
+#>         "@value": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5"
+#>       },
+#>       {
+#>         "@value": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
+#>       }
+#>     ],
+#>     "http://schema.org/result": [
+#>       {
+#>         "@value": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51"
+#>       }
+#>     ],
+#>     "@type": [
+#>       "http://schema.org/Action"
+#>     ]
+#>   }
+#> ]
 ```
 
 ## Schema.org compatibility
@@ -428,49 +391,57 @@ writeLines(readLines(p))
 #> {
 #>   "@context": "http://schema.org/",
 #>   "type": "Dataset",
-#>   "id": "urn:uuid:e3b1ce5c-377c-4d40-8d69-3ef2c9c39e34",
+#>   "id": "urn:uuid:14937019-8579-40ab-a8a2-f2673988678c",
 #>   "name": "An example dataset",
 #>   "creator": {
 #>     "givenName": "John",
 #>     "familyName": "Public"
 #>   },
-#>   "issued": "2021-11-16",
+#>   "dateCreated": "2023-02-10",
 #>   "license": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
 #>   "distribution": [
-#>     [
-#>       {
-#>         "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>         "type": "DataDownload",
-#>         "identifier": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>         "name": "file2d7ff97f803a4.csv",
-#>         "description": "Input data",
-#>         "encodingFormat": "text/csv",
-#>         "contentSize": 1783,
-#>         "dateCreated": "2021-11-16"
-#>       }
-#>     ],
-#>     [
-#>       {
-#>         "type": "SoftwareSourceCode",
-#>         "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>         "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>         "name": "file2d7ff941cfa77c.R",
-#>         "description": "R code",
-#>         "encodingFormat": "application/R"
-#>       }
-#>     ],
-#>     [
-#>       {
-#>         "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>         "type": "DataDownload",
-#>         "identifier": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>         "name": "file2d7ff954a03b4.csv",
-#>         "description": "output data",
-#>         "encodingFormat": "text/csv",
-#>         "contentSize": 65,
-#>         "dateCreated": "2021-11-16"
-#>       }
-#>     ]
+#>     {
+#>       "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+#>       "type": "DataDownload",
+#>       "identifier": [
+#>         ["hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5"],
+#>         ["hash://md5/6463474bfe6973a81dc7cbc4a71e8dd1"]
+#>       ],
+#>       "name": "file1f931a6c548143.csv",
+#>       "description": "Input data",
+#>       "encodingFormat": "text/csv",
+#>       "contentSize": 1783,
+#>       "dateCreated": "2023-02-10"
+#>     },
+#>     {
+#>       "type": ["DataDownload", "SoftwareSourceCode"],
+#>       "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
+#>       "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
+#>       "name": "file1f931a6840b2cf.R",
+#>       "description": "R code",
+#>       "encodingFormat": "application/R"
+#>     },
+#>     {
+#>       "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+#>       "type": "DataDownload",
+#>       "identifier": [
+#>         ["hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51"],
+#>         ["hash://md5/08cbbf8dd1ac01cb2d2c5c708055de33"]
+#>       ],
+#>       "name": "file1f931a744df9e.csv",
+#>       "description": "output data",
+#>       "encodingFormat": "text/csv",
+#>       "contentSize": 65,
+#>       "dateCreated": "2023-02-10"
+#>     },
+#>     {
+#>       "type": "Action",
+#>       "id": "urn:uuid:383160c8-69b9-4cac-baf0-45e8532c716e",
+#>       "description": "Running R script",
+#>       "object": ["hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5", "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"],
+#>       "result": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+#>       "endTime": "2023-02-10 22:43:49"
+#>     }
 #>   ]
 #> }
 ```
@@ -490,43 +461,63 @@ terms, but have based the mapping around translating `prov:Activity` to
 to_sdo(p)
 #> {
 #>   "@context": "http://schema.org/",
-#>   "id": "urn:uuid:e3b1ce5c-377c-4d40-8d69-3ef2c9c39e34",
+#>   "id": "urn:uuid:14937019-8579-40ab-a8a2-f2673988678c",
 #>   "type": "Dataset",
 #>   "creator": {
 #>     "familyName": "Public",
 #>     "givenName": "John"
 #>   },
+#>   "dateCreated": "2023-02-10",
 #>   "distribution": [
 #>     {
 #>       "id": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
 #>       "type": "DataDownload",
 #>       "contentSize": 1783,
-#>       "dateCreated": "2021-11-16",
+#>       "dateCreated": "2023-02-10",
 #>       "description": "Input data",
 #>       "encodingFormat": "text/csv",
-#>       "identifier": "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
-#>       "name": "file2d7ff97f803a4.csv"
+#>       "identifier": [
+#>         "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+#>         "hash://md5/6463474bfe6973a81dc7cbc4a71e8dd1"
+#>       ],
+#>       "name": "file1f931a6c548143.csv"
 #>     },
 #>     {
 #>       "id": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>       "type": "SoftwareSourceCode",
+#>       "type": [
+#>         "DataDownload",
+#>         "SoftwareSourceCode"
+#>       ],
 #>       "description": "R code",
 #>       "encodingFormat": "application/R",
 #>       "identifier": "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393",
-#>       "name": "file2d7ff941cfa77c.R"
+#>       "name": "file1f931a6840b2cf.R"
 #>     },
 #>     {
 #>       "id": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
 #>       "type": "DataDownload",
 #>       "contentSize": 65,
-#>       "dateCreated": "2021-11-16",
+#>       "dateCreated": "2023-02-10",
 #>       "description": "output data",
 #>       "encodingFormat": "text/csv",
-#>       "identifier": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
-#>       "name": "file2d7ff954a03b4.csv"
+#>       "identifier": [
+#>         "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51",
+#>         "hash://md5/08cbbf8dd1ac01cb2d2c5c708055de33"
+#>       ],
+#>       "name": "file1f931a744df9e.csv"
+#>     },
+#>     {
+#>       "id": "urn:uuid:383160c8-69b9-4cac-baf0-45e8532c716e",
+#>       "type": "Action",
+#>       "description": "Running R script",
+#>       "endTime": "2023-02-10 22:43:49",
+#>       "object": [
+#>         "hash://sha256/439ba335c3d28dd0c1871f75bdffb389d5a3b23cf703275566700140c9523ae5",
+#>         "hash://sha256/47a2e3f96b221143081d31624d423a611e36d6e063815fdd3768fddc2ede8393"
+#>       ],
+#>       "result": "hash://sha256/ce976335aa3d8b10e86bac4ed23424d4b1f87096484b76051c58be16a40a2d51"
 #>     }
 #>   ],
-#>   "issued": "2021-11-16",
 #>   "license": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
 #>   "name": "An example dataset"
 #> }
