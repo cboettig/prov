@@ -12,7 +12,8 @@ parse_sdo <- function(json){
   dd <- ds <- data.frame()
   ## Handle both Dataset and DataDownload
   if("Dataset" %in% type){
-    dataset <- graph[type == "Dataset"]
+    i <- which(type == "Dataset")
+    dataset <- graph[i]
     ds <- parseDataset(dataset)
   }
   if("DataDownload" %in% type) {
@@ -27,6 +28,7 @@ parse_sdo <- function(json){
 lookup <- function(x,name){
   vapply(x, extract, "",  name = name)
 }
+
 extract <- function(y, name){
   out <- tryCatch(y[[name]][[1]],
                   error = function(e) NA_character_,
@@ -51,10 +53,11 @@ parseDataset <- function(dataset) {
 parseDataDownload <- function(datadownload){
   
   id <- lookup(datadownload, "id")
+  identifier <- lookup(datadownload, "identifier")
   name <- lookup(datadownload, "name")
   description <- lookup(datadownload, "description")
   date <- as.Date(lookup(datadownload, "dateCreated"))
-  df <- data.frame(name, description, id, date)
+  df <- data.frame(name, description, id, date, identifier)
   df <- df[df$description == "output data",]
   df$basename <- tools::file_path_sans_ext(df$name, TRUE)
   df$compression <- tools::file_ext(df$name)

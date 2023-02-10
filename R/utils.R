@@ -1,11 +1,18 @@
 
 #' @importFrom openssl sha256
-hash_id <- function(f){
+hash_id <- function(f, algos=c("sha256")){
+  
   if(all(is.null(f))) return(NULL)
   vapply(f, 
-         function(f)
-           paste0("hash://sha256/", openssl::sha256(file(f, raw = TRUE))),
-         character(1L))
+         function(f){
+           vapply(algos, function(algo) {
+            hashfn <- switch(algo, 
+                            "sha256" = openssl::sha256,
+                            "md5" = openssl::md5)
+           paste0("hash://",algo, "/", hashfn(file(f, raw = TRUE)))
+           }, character(1L))
+         },
+         algos)
 }
 
 multihash_file <- function(files){

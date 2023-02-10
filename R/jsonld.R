@@ -55,6 +55,7 @@ append_ld <- function(x) {
   rdf <- lapply(x, jsonld::jsonld_to_rdf)
   rdf <- do.call(paste, rdf)
   jsonld::jsonld_from_rdf(rdf)
+
 }
 
 
