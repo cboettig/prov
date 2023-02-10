@@ -36,7 +36,7 @@ schema_distribution <- function(file,
                               meta_id = NULL){
   
   if(is.null(identifier))
-    identifier = hash_id(file, algo= c("sha256", "md5"))
+    identifier = hash_id(file, algos = c("sha256", "md5"))
   
   if(is.null(id))
     id = identifier[[1]]

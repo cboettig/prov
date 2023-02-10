@@ -69,8 +69,9 @@ write_prov <-  function(
   issued = as.character(Sys.Date()),
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
   provdb = "prov.json",
-  append = is.null(code),
+  append = TRUE,
   schema = c("http://schema.org", "http://www.w3.org/ns/dcat"),
+  embed_actions = is.null(code),
   ...
 ){
   
@@ -87,6 +88,7 @@ write_prov <-  function(
        issued = issued,
        license = license,
        schema = schema, 
+       embed_actions = embed_actions,
        ...)
   
   write_jsonld(prov_obj, provdb, append, schema = schema)

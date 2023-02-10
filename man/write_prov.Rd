@@ -15,8 +15,9 @@ write_prov(
   issued = as.character(Sys.Date()),
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
   provdb = "prov.json",
-  append = is.null(code),
+  append = TRUE,
   schema = c("http://schema.org", "http://www.w3.org/ns/dcat"),
+  embed_actions = is.null(code),
   ...
 )
 }
@@ -45,9 +46,9 @@ write_prov(
 
 \item{schema}{Use schema.org or DCAT2 schema? See details.}
 
-\item{...}{additional named elements passed to Dataset}
-
 \item{embed_actions}{should we incldue schema:Action to create?}
+
+\item{...}{additional named elements passed to Dataset}
 }
 \description{
 Write a provenance trace into JSON-LD
