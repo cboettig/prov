@@ -62,5 +62,5 @@ rdf_table <- function(doc){
 
 }
 
-
-mime_extra = c("parquet" = "application/vnd.apache.parquet")
+#mime_extra = c("parquet" = "application/vnd.apache.parquet")
+mime_extra = c("parquet" = "application/x-parquet")

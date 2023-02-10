@@ -1,6 +1,5 @@
 
-context_file <- function(schema = c("http://www.w3.org/ns/dcat",
-                                    "http://schema.org")){
+context_file <- function(schema = c("http://schema.org", "http://www.w3.org/ns/dcat")){
   
   schema <- match.arg(schema)
   
@@ -27,8 +26,7 @@ context <- function(schema){
 write_jsonld <- function(obj,
                          file = "prov.json",
                          append = TRUE,
-                         schema = c("http://www.w3.org/ns/dcat",
-                                    "http://schema.org") 
+                         schema = c("http://schema.org", "http://www.w3.org/ns/dcat"))
 ){
   schema <- match.arg(schema)
   context <- context(schema)
@@ -37,12 +35,11 @@ write_jsonld <- function(obj,
   if(fs::file_exists(file) && append){
     tmp <- tempfile(fileext=".json")
     jsonlite::write_json(out, tmp, auto_unbox=TRUE, pretty = TRUE)
-    out <- merge_jsonld(tmp, file, context = context_file(schema))
+    out <- append_ld(c(tmp, file))
     writeLines(out, file)
   } else {
     jsonlite::write_json(out, file, auto_unbox=TRUE, pretty = TRUE)
   }
-  
   
 }
 
@@ -54,27 +51,10 @@ write_jsonld <- function(obj,
 
 
 
-#' @importFrom jsonld jsonld_flatten jsonld_compact
-merge_jsonld <- function(x,y, context = context_file()){
-  flat_x <- jsonld::jsonld_flatten(x) 
-  flat_y <- jsonld::jsonld_flatten(y)
-  json <- jsonld::jsonld_flatten(merge_json(flat_x, flat_y))
-  compact <- jsonld::jsonld_compact(json, context)
-  if(grepl('"Dataset"', compact)){
-    frame <- c(jsonlite::read_json(context), list("@type" = "Dataset"))
-    out <- jsonld::jsonld_frame(compact, jsonlite::toJSON(frame))
-  } else {
-    out <- compact
-  }
-  out
+append_ld <- function(x) {
+  rdf <- lapply(x, jsonld::jsonld_to_rdf)
+  rdf <- do.call(paste, rdf)
+  jsonld::jsonld_from_rdf(rdf)
 }
 
-append_ld <- function(obj, json, context = context_file()){
-  flat <- jsonld::jsonld_flatten(json) 
-  flat_list <- jsonlite::fromJSON(flat, simplifyVector = FALSE)
-  combined <- jsonlite::toJSON(c(flat_list, list(obj)), auto_unbox = TRUE)
-  out <- jsonld::jsonld_compact(jsonld::jsonld_flatten(combined), context)
-  
-  writeLines(out, json)
-}
 
