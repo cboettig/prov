@@ -26,8 +26,7 @@ context <- function(schema){
 write_jsonld <- function(obj,
                          file = "prov.json",
                          append = TRUE,
-                         schema = c("http://schema.org", "http://www.w3.org/ns/dcat"))
-){
+                         schema = c("http://schema.org", "http://www.w3.org/ns/dcat")) {
   schema <- match.arg(schema)
   context <- context(schema)
   out <- c(context, obj)

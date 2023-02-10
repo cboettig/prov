@@ -16,7 +16,7 @@ write_prov(
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
   provdb = "prov.json",
   append = is.null(code),
-  schema = c("http://www.w3.org/ns/dcat", "http://schema.org"),
+  schema = c("http://schema.org", "http://www.w3.org/ns/dcat"),
   ...
 )
 }
@@ -64,7 +64,7 @@ elements must be in schema.org namespace.
 Provenance can be expressed in (purely) schema.org or as DCAT2
 (includes terms from DCTERMS, PROV, DCAT2, CITO ontologies).
 The latter is more expressive in terms of provenance.
-Also note DCAT but not schema can explicitly encode compression and
+Also note DCAT2 but not schema.org can explicitly encode compression and
 metadata file relationships.
 }
 \examples{

@@ -74,6 +74,8 @@ write_prov <-  function(
   ...
 ){
   
+  schema <- match.arg(schema)
+  
   prov_obj <- 
   prov(data_in = data_in, 
        code = code, 

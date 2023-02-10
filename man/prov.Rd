@@ -14,7 +14,7 @@ prov(
   description = NULL,
   issued = as.character(Sys.Date()),
   license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
-  schema = c("http://www.w3.org/ns/dcat", "http://schema.org"),
+  schema = c("http://schema.org", "http://www.w3.org/ns/dcat"),
   embed_actions = FALSE,
   ...
 )
